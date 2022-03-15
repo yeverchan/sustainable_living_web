@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yeverchan.recycling_machine.repository.BoardMapper">
+
+    <select id="select" parameterType="String" resultType="UserDto">
+        SELECT id, password  FROM user where id = #{id}
+    </select>
+
+    <select id="selectEmail" parameterType="String" resultType="UserDto">
+        SELECT email  FROM user where email = #{email}
+    </select>
+
+    <insert id="insert" parameterType="UserDto">
+        INSERT INTO user (id, password, email, name) values (#{id}, #{password}, #{email}, #{name})
+    </insert>
+</mapper>
