@@ -8,6 +8,10 @@
         SELECT id, password  FROM user where id = #{id}
     </select>
 
+    <select id="selectUser" parameterType="String" resultType="UserDto">
+        SELECT id, password, email, name  FROM user where id = #{id}
+    </select>
+
     <select id="selectEmail" parameterType="String" resultType="UserDto">
         SELECT email  FROM user where email = #{email}
     </select>

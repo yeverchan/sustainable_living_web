@@ -9,6 +9,7 @@ public class RegisterValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
+
         return RegisterDto.class.isAssignableFrom(clazz);
     }
 
@@ -21,20 +22,20 @@ public class RegisterValidator implements Validator {
         String checkPassword = register.getCheckPassword();
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "required", "Enter Id");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "required","Enter password");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "checkPassword", "required","Enter check password");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required","Enter name");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "required","Enter email");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "required", "Enter password");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "checkPassword", "required", "Enter check password");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required", "Enter name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "required", "Enter email");
 
-        if (id.length() <= 4) {
+        if (id.length() >=1 && id.length() <= 4) {
             errors.rejectValue("id", "length", new String[]{"5"}, "id length must be at least ");
         }
-        if (password.length() <= 6) {
-            errors.rejectValue("password", "length", new String[]{"7"},"password length must be at least ");
-        }
-
-        if (!password.equals(checkPassword)) {
-            errors.rejectValue("checkPassword", "match","not equal password");
+        if (password.length() >= 1 && password.length() <= 6) {
+            errors.rejectValue("password", "length", new String[]{"7"}, "password length must be at least ");
+        }else {
+            if (!password.equals(checkPassword)) {
+                errors.rejectValue("checkPassword", "match", "not equal password");
+            }
         }
     }
 }

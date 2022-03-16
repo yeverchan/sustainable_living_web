@@ -19,6 +19,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public UserDto selectUser(String id) throws Exception {
+        return sqlSession.selectOne(namespace+"selectUser", id);
+    }
+
+    @Override
     public UserDto selectEmail(String email) throws Exception {
         return sqlSession.selectOne(namespace+"selectEmail", email);
     }

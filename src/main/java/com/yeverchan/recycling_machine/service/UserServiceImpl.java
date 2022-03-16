@@ -1,6 +1,7 @@
 package com.yeverchan.recycling_machine.service;
 
 import com.yeverchan.recycling_machine.domain.RegisterDto;
+import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,18 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("duplicated id");
         }
         userRepository.insert(register);
+    }
+
+    @Override
+    public UserAuthInfo login(UserDto user) throws Exception{
+        UserDto target = userRepository.selectUser(user.getId());
+        if(target == null){
+            throw new RuntimeException("Couldn't find account");
+        }else {
+            if(!target.getPassword().equals(user.getPassword())) {
+                throw new RuntimeException("Wrong Password");
+            }
+        }
+        return new UserAuthInfo(target.getId(), target.getEmail());
     }
 }

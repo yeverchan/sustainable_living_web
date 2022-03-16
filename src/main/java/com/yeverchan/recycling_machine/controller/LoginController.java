@@ -1,16 +1,20 @@
 package com.yeverchan.recycling_machine.controller;
 
 
+import com.yeverchan.recycling_machine.domain.RegisterDto;
+import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.service.UserService;
+import com.yeverchan.recycling_machine.validator.LoginValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class LoginController {
@@ -18,6 +22,10 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @InitBinder
+    private void loginValidator(WebDataBinder binder){
+        binder.setValidator(new LoginValidator());
+    }
 
     @GetMapping("/login")
     public String getLoginPage() {
@@ -25,26 +33,20 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(String id, String password, HttpServletRequest request, HttpServletResponse response) {
+    public String login(@ModelAttribute(value = "login") @Valid UserDto user, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        if(!loginCheck(id, password)){
-            return "redirect:/?false";
+        if(!bindingResult.hasErrors()){
+            try{
+                UserAuthInfo authInfo = userService.login(user);
+                HttpSession session = request.getSession();
+                session.setAttribute("auth", authInfo);
+            }catch (RuntimeException e){
+                request.setAttribute("message", e.getMessage());
+                return "login";
+            }
+            return "redirect:/";
         }
-
-        HttpSession session = request.getSession();
-        session.setAttribute("id", id);
-
-        return "redirect:/";
+        return "login";
     }
 
-    private boolean loginCheck(String id, String password){
-        try{
-            UserDto user;
-            user = userService.findById(id);
-            return user != null && user.getPassword().equals(password);
-        } catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
 }
