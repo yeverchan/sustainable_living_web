@@ -2,6 +2,7 @@
 /src/main/webapp/WEB-INF/spring/root-context.xml
 /src/main/resources/mybatis-config.xml
 /src/main/resources/mapper/boardMapper.xml
+target/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
