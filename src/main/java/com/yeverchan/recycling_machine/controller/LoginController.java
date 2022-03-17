@@ -28,10 +28,15 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage() {
+    public String login() {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession(false).invalidate();
+        return "redirect:/";
+    }
     @PostMapping("/login")
     public String login(@ModelAttribute(value = "login") @Valid UserDto user, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
