@@ -1,12 +1,12 @@
 package com.yeverchan.recycling_machine.service;
 
+import com.yeverchan.recycling_machine.domain.Point;
 import com.yeverchan.recycling_machine.domain.RegisterDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -50,6 +50,8 @@ public class UserServiceImpl implements UserService {
                 throw new RuntimeException("Wrong Password");
             }
         }
-        return new UserAuthInfo(target.getId(), target.getEmail());
+        Point point = pointService.getPoint(user.getId());
+
+        return new UserAuthInfo(target.getId(), target.getEmail(), target.getName(), point.getAmount());
     }
 }

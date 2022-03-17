@@ -8,5 +8,7 @@
 <body>
     <h1>${auth.id}</h1>
     <h1>${auth.email}</h1>
+    <h1>${auth.name}</h1>
+    <h1>${auth.amount}</h1>
 </body>
 </html>

@@ -9,6 +9,10 @@ public class Point {
         this.user_id = user_id;
     }
 
+    public Point(Long amount) {
+        this.amount = amount;
+    }
+
     public Point(String user_id, Long amount) {
         this.user_id = user_id;
         this.amount = amount;
