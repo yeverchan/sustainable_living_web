@@ -6,12 +6,16 @@ import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    PointService pointService;
 
     @Override
     public UserDto findById(String id) throws Exception {
@@ -24,6 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void register(RegisterDto register) throws Exception{
         if(userRepository.selectEmail(register.getEmail()) != null){
             throw new RuntimeException("duplicated email");
@@ -32,6 +37,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("duplicated id");
         }
         userRepository.insert(register);
+        pointService.init(register.getId());
     }
 
     @Override

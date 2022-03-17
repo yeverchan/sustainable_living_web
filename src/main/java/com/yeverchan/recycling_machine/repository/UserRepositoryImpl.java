@@ -5,6 +5,7 @@ import com.yeverchan.recycling_machine.domain.UserDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -37,4 +38,5 @@ public class UserRepositoryImpl implements UserRepository {
         user.setName(register.getName());
         return sqlSession.insert(namespace+"insert", user);
     }
+
 }
