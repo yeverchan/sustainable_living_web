@@ -2,23 +2,40 @@ package com.yeverchan.recycling_machine.controller;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/manage")
 public class UserInfoController {
 
-    @GetMapping("/info")
+    @GetMapping("/my")
     public String info(HttpServletRequest request){
 
         if(request.getSession(false).getAttribute("auth") == null){
             return "redirect:/login";
         }
 
-        //validate auth. auth.equals user.id, user.email
+        // TODO: 2022/03/18 유저 검증
         return "userInfo";
     }
+
+    @GetMapping("/change")
+    public String changeInfo(){
+        return "userInfoChange";
+    }
+
+    @PostMapping("/nameChange")
+    public String nameChange(String name, String id){
+        // TODO: 2022/03/18 변경 사항 검사, 업데이트, 히스토리
+        return "userInfoChange";
+    }
+
+    @PostMapping("/emailChange")
+    public String emailChange(String email, String id){
+        // TODO: 2022/03/18 변경 사항 검사, 중복 검사, 업데이트, 히스토리
+        return "userInfoChange";
+    }
+
 }

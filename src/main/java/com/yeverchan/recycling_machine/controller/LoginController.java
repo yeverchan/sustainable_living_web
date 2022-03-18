@@ -1,7 +1,6 @@
 package com.yeverchan.recycling_machine.controller;
 
 
-import com.yeverchan.recycling_machine.domain.RegisterDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.service.UserService;

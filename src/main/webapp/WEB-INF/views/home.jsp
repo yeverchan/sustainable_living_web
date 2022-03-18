@@ -18,6 +18,6 @@
     </ul>
 </ul>
 
-<li><a href="<c:url value='/user/info'/>">test</a></li>
+<li><a href="<c:url value='/manage/my'/>">test</a></li>
 </body>
 </html>
