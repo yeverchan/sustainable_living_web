@@ -16,8 +16,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    PointService pointService;
 
     @Override
     public UserDto findById(String id) throws Exception {
@@ -30,7 +28,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void register(RegisterDto register) throws Exception{
         if(userRepository.selectEmail(register.getEmail()) != null){
             throw new RuntimeException("duplicated email");
@@ -39,7 +36,6 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("duplicated id");
         }
         userRepository.insert(register);
-        pointService.init(register.getId());
     }
 
     @Override
@@ -52,9 +48,8 @@ public class UserServiceImpl implements UserService {
                 throw new RuntimeException("Wrong Password");
             }
         }
-        Point point = pointService.getPoint(user.getId());
 
-        return new UserAuthInfo(target.getId(), target.getEmail(), target.getName(), point.getAmount());
+        return new UserAuthInfo(target.getId(), target.getEmail(), target.getName());
     }
 
     @Override

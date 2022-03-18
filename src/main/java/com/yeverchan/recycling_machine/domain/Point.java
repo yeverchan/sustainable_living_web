@@ -1,7 +1,7 @@
 package com.yeverchan.recycling_machine.domain;
 
 public class Point {
-    private Long id;
+    private Integer id;
     private String user_id;
     private Long amount;
 
@@ -18,7 +18,7 @@ public class Point {
         this.amount = amount;
     }
 
-    public Long getId(){
+    public Integer getId(){
         return id;
     }
 

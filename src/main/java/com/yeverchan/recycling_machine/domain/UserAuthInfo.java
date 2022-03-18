@@ -8,6 +8,12 @@ public class UserAuthInfo {
     private String email;
     private Long amount;
 
+    public UserAuthInfo(String id, String email, String name) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+    }
+
     public UserAuthInfo(String id, String email, String name, Long amount) {
         this.id = id;
         this.email = email;

@@ -1,12 +1,15 @@
 package com.yeverchan.recycling_machine.controller;
 
 
+import com.yeverchan.recycling_machine.domain.Point;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
+import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.UserService;
 import com.yeverchan.recycling_machine.validator.LoginValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,9 @@ public class LoginController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PointService pointService;
 
     @InitBinder
     private void loginValidator(WebDataBinder binder){
@@ -37,11 +43,14 @@ public class LoginController {
         return "redirect:/";
     }
     @PostMapping("/login")
+    @Transactional(rollbackFor = Exception.class)
     public String login(@ModelAttribute(value = "login") @Valid UserDto user, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         if(!bindingResult.hasErrors()){
             try{
                 UserAuthInfo authInfo = userService.login(user);
+                Point point = pointService.getPoint(user.getId());
+                authInfo.setAmount(point.getAmount());
                 HttpSession session = request.getSession(false);
                 session.setAttribute("auth", authInfo);
             }catch (RuntimeException e){

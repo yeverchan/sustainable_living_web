@@ -1,9 +1,12 @@
 package com.yeverchan.recycling_machine.controller;
 
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
+import com.yeverchan.recycling_machine.domain.UserHistoryDto;
+import com.yeverchan.recycling_machine.service.UserHistoryService;
 import com.yeverchan.recycling_machine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,9 @@ public class UserInfoController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserHistoryService userHistoryService;
 
     @GetMapping("/my")
     public String info(HttpServletRequest request){
@@ -36,6 +42,7 @@ public class UserInfoController {
     }
 
     @PostMapping("/nameChange")
+    @Transactional(rollbackFor = Exception.class)
     public String nameChange(@ModelAttribute(value = "name") String name, Errors error, HttpServletRequest request) {
         // TODO: 2022/03/18 변경 사항 검사, 업데이트, 히스토리
 
@@ -45,7 +52,7 @@ public class UserInfoController {
             error.reject(name, "There is no change");
             return "userInfoChange";
         }
-        // 유저 업데이트 후 어서 업데이트
+
         Map<String, String> map = new HashMap<>();
         map.put("name", name);
         map.put("id", authInfo.getId());
@@ -54,10 +61,14 @@ public class UserInfoController {
         authInfo.setName(name);
         session.setAttribute("auth", authInfo);
 
+        UserHistoryDto userHistory = new UserHistoryDto(authInfo.getId(), authInfo.getName(), authInfo.getEmail());
+        userHistoryService.createHistory(userHistory);
+
         return "userInfoChange";
     }
 
     @PostMapping("/emailChange")
+    @Transactional(rollbackFor = Exception.class)
     public String emailChange(@ModelAttribute(value = "email") String email, Errors error, HttpServletRequest request) throws Exception {
         // TODO: 2022/03/18 변경 사항 검사, 중복 검사, 업데이트, 히스토리
 
@@ -79,6 +90,10 @@ public class UserInfoController {
 
         authInfo.setEmail(email);
         session.setAttribute("auth", authInfo);
+
+        UserHistoryDto userHistory = new UserHistoryDto(authInfo.getId(), authInfo.getName(), authInfo.getEmail());
+        userHistoryService.createHistory(userHistory);
+
         return "userInfoChange";
     }
 

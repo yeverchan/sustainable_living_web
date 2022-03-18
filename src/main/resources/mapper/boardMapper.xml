@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yeverchan.recycling_machine.repository.BoardMapper">
+
+    <select id="select" parameterType="String" resultType="UserDto">
+        SELECT id, password  FROM user WHERE id = #{id}
+    </select>
+
+    <select id="selectUser" parameterType="String" resultType="UserDto">
+        SELECT id, password, email, name  FROM user WHERE id = #{id}
+    </select>
+
+    <select id="selectEmail" parameterType="String" resultType="UserDto">
+        SELECT email  FROM user WHERE email = #{email}
+    </select>
+
+    <insert id="insert" parameterType="UserDto">
+        INSERT INTO user (id, password, email, name) VALUES (#{id}, #{password}, #{email}, #{name})
+    </insert>
+
+    <update id="updateName" parameterType="Map">
+        UPDATE user SET name=#{name} where id=#{id}
+    </update>
+
+    <update id="updateEmail" parameterType="Map">
+        UPDATE user SET email=#{email} where id=#{id}
+    </update>
+
+    <!--    point    -->
+
+    <insert id="insertPoint" parameterType="String">
+        INSERT INTO point (user_id) VALUES (#{user_id})
+    </insert>
+    
+    <select id="selectPointById" parameterType="String" resultType="Point">
+        SELECT amount FROM point WHERE user_id = #{id}
+    </select>
+
+    <!-- userHistory   -->
+
+    <select id="selectAllHistory" parameterType="String" resultType="UserHistory">
+        SELECT user_id, name, email, updated_At FROM user_history WHERE user_id=#{user_id} ORDER BY updated_At DESC
+    </select>
+
+    <insert id="insertHistory" parameterType="UserHistory">
+        INSERT INTO user_history (user_id, name, email) values (#{user_id}, #{name}, #{email})
+    </insert>
+</mapper>
