@@ -42,7 +42,7 @@ public class LoginController {
         if(!bindingResult.hasErrors()){
             try{
                 UserAuthInfo authInfo = userService.login(user);
-                HttpSession session = request.getSession();
+                HttpSession session = request.getSession(false);
                 session.setAttribute("auth", authInfo);
             }catch (RuntimeException e){
                 request.setAttribute("message", e.getMessage());

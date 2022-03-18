@@ -5,7 +5,8 @@ import com.yeverchan.recycling_machine.domain.UserDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -37,6 +38,16 @@ public class UserRepositoryImpl implements UserRepository {
         user.setEmail(register.getEmail());
         user.setName(register.getName());
         return sqlSession.insert(namespace+"insert", user);
+    }
+
+    @Override
+    public void updateName(Map<String, String> name){
+        sqlSession.update(namespace+"updateName", name);
+    }
+
+    @Override
+    public void updateEmail(Map<String, String> email){
+        sqlSession.update(namespace+"updateEmail", email);
     }
 
 }

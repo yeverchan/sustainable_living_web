@@ -59,4 +59,14 @@ public class UserAuthInfo {
     public int hashCode() {
         return Objects.hash(id, name, email, amount);
     }
+
+    @Override
+    public String toString() {
+        return "UserAuthInfo{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

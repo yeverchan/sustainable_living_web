@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -53,5 +55,15 @@ public class UserServiceImpl implements UserService {
         Point point = pointService.getPoint(user.getId());
 
         return new UserAuthInfo(target.getId(), target.getEmail(), target.getName(), point.getAmount());
+    }
+
+    @Override
+    public void setName(Map<String, String> name) {
+        userRepository.updateName(name);
+    }
+
+    @Override
+    public void setEmail(Map<String, String> email) {
+        userRepository.updateEmail(email);
     }
 }
