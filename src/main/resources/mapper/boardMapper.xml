@@ -4,6 +4,9 @@
 
 <mapper namespace="com.yeverchan.recycling_machine.repository.BoardMapper">
 
+
+    <!--    user    -->
+    
     <select id="select" parameterType="String" resultType="UserDto">
         SELECT id, password  FROM user WHERE id = #{id}
     </select>
@@ -42,7 +45,7 @@
         SELECT amount FROM point WHERE user_id = #{id}
     </select>
 
-    <!-- userHistory   -->
+    <!--    userHistory   -->
 
     <select id="selectAllHistory" parameterType="String" resultType="UserHistory">
         SELECT user_id, name, email, updated_At FROM user_history WHERE user_id=#{user_id} ORDER BY updated_At DESC
@@ -50,5 +53,10 @@
 
     <insert id="insertHistory" parameterType="UserHistory">
         INSERT INTO user_history (user_id, name, email) values (#{user_id}, #{name}, #{email})
+    </insert>
+
+    <!--    product    -->
+    <insert id="insertProduct" parameterType="ProductDto">
+        INSERT INTO product (user_id, name, description, price) values (#{user_id}, #{name}, #{description}, #{price})
     </insert>
 </mapper>
