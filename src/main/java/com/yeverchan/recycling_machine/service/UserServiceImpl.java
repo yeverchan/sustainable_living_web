@@ -51,12 +51,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setName(Map<String, String> name) {
+    public void changeName(Map<String, String> name) {
         userRepository.updateName(name);
     }
 
     @Override
-    public void setEmail(Map<String, String> email) {
+    public void changeEmail(Map<String, String> email) {
         userRepository.updateEmail(email);
+    }
+
+    @Override
+    public void changePwd(Map<String, String> pwd) {
+        userRepository.updatePwd(pwd);
     }
 }

@@ -8,7 +8,6 @@
 </head>
 <body>
 <div>
-    <%--    passwordChangeDto   --%>
     <form:form modelAttribute="pwdChange">
         <div class="error_msg"><form:errors path="current"/></div>
         <label for="current">current password</label>

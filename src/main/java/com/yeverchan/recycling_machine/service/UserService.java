@@ -11,6 +11,7 @@ public interface UserService {
     UserDto findByEmail(String email) throws Exception;
     void register(RegisterDto register) throws Exception;
     UserAuthInfo login(UserDto user) throws Exception;
-    void setName(Map<String, String> name);
-    void setEmail(Map<String, String> email);
+    void changeName(Map<String, String> name);
+    void changeEmail(Map<String, String> email);
+    void changePwd(Map<String, String> pwd);
 }

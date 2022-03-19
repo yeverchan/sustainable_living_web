@@ -55,7 +55,7 @@ public class UserInfoController {
         Map<String, String> map = new HashMap<>();
         map.put("name", name);
         map.put("id", authInfo.getId());
-        userService.setName(map);
+        userService.changeName(map);
 
         authInfo.setName(name);
         session.setAttribute("auth", authInfo);
@@ -84,7 +84,7 @@ public class UserInfoController {
         Map<String, String> map = new HashMap<>();
         map.put("email", email);
         map.put("id", authInfo.getId());
-        userService.setEmail(map);
+        userService.changeEmail(map);
 
         authInfo.setEmail(email);
         session.setAttribute("auth", authInfo);

@@ -12,4 +12,5 @@ public interface UserRepository {
     int insert(RegisterDto register) throws Exception;
     void updateName(Map<String, String> name);
     void updateEmail(Map<String, String> email);
+    void updatePwd(Map<String, String> pwd);
 }

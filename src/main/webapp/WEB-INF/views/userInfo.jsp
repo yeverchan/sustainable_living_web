@@ -6,10 +6,10 @@
     <title>my info</title>
 </head>
 <body>
-    <h1>${auth.id}</h1>
-    <h1>${auth.email}</h1>
-    <h1>${auth.name}</h1>
-    <h1>${auth.amount}</h1>
+    <h1>id : ${auth.id}</h1>
+    <h1>email : ${auth.email}</h1>
+    <h1>name : ${auth.name}</h1>
+    <h1>point : ${auth.amount}</h1>
     <a href="/manage/change"><button>Change Info</button></a>
     <a href="/manage/pwdChange"><button>change password</button></a>
 </body>

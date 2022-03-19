@@ -28,6 +28,10 @@
         UPDATE user SET email=#{email} where id=#{id}
     </update>
 
+    <update id="updatePwd" parameterType="Map">
+        UPDATE user SET password=#{password} where id=#{id}
+    </update>
+
     <!--    point    -->
 
     <insert id="insertPoint" parameterType="String">

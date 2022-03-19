@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class pwdChangeController {
@@ -37,7 +39,7 @@ public class pwdChangeController {
 
     @PostMapping("/manage/pwdChange")
     public String passwordChange(@ModelAttribute(value = "pwdChange") @Valid PwdChangeDto pwdChange, BindingResult bindingResult, HttpServletRequest request) throws Exception {
-
+//        request.getSession(false).setAttribute("test", pwdChange);
         if(!bindingResult.hasErrors()){
 
             UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
@@ -51,9 +53,15 @@ public class pwdChangeController {
                 bindingResult.rejectValue("newPwd","duplicated");
                 return "pwdChange";
             }
+//            request.getSession(false).removeAttribute("test");
+            Map<String, String> map = new HashMap<>();
+            map.put("password", pwdChange.getNewPwd());
+            map.put("id", authInfo.getId());
+            userService.changePwd(map);
 
             return "pwdChange";
         }
+
         return "pwdChange";
     }
 }
