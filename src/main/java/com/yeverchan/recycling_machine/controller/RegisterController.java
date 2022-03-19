@@ -42,6 +42,7 @@ public class RegisterController {
     @PostMapping("/create")
     @Transactional(rollbackFor = Exception.class)
     public String crete_account(@ModelAttribute(value = "register") @Valid RegisterDto register, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+        request.setAttribute("createTemp", register);
         if (!bindingResult.hasErrors()) {
             try {
                 userService.register(register);

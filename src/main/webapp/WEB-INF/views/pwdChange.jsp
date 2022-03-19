@@ -11,15 +11,15 @@
     <form:form modelAttribute="pwdChange">
         <div class="error_msg"><form:errors path="current"/></div>
         <label for="current">current password</label>
-        <input type="password" name="current" id="current" placeholder="current password"/>
+        <input type="password" name="current" id="current" placeholder="current password" value="${pwd.current}"/>
 
         <div class="error_msg"><form:errors path="newPwd"/></div>
         <label for="newPwd">new password</label>
-        <input type="password" name="newPwd" id="newPwd" placeholder="new password"/>
+        <input type="password" name="newPwd" id="newPwd" placeholder="new password" value="${pwd.newPwd}"/>
 
         <div class="error_msg"><form:errors path="checkNewPwd"/></div>
         <label for="checkNewPwd">check new password</label>
-        <input type="password" name="checkNewPwd" id="checkNewPwd" placeholder="check new password"/>
+        <input type="password" name="checkNewPwd" id="checkNewPwd" placeholder="check new password" value="${pwd.checkNewPwd}"/>
 
         <button type="submit">change</button>
     </form:form>

@@ -39,7 +39,7 @@ public class pwdChangeController {
 
     @PostMapping("/manage/pwdChange")
     public String passwordChange(@ModelAttribute(value = "pwdChange") @Valid PwdChangeDto pwdChange, BindingResult bindingResult, HttpServletRequest request) throws Exception {
-//        request.getSession(false).setAttribute("test", pwdChange);
+        request.setAttribute("pwd", pwdChange);
         if(!bindingResult.hasErrors()){
 
             UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
