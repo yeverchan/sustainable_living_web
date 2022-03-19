@@ -1,17 +1,24 @@
 package com.yeverchan.recycling_machine.controller;
 
+import com.yeverchan.recycling_machine.domain.PwdChangeDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
+import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.domain.UserHistoryDto;
 import com.yeverchan.recycling_machine.service.UserHistoryService;
 import com.yeverchan.recycling_machine.service.UserService;
+import com.yeverchan.recycling_machine.validator.PwdChangeValidator;
+import com.yeverchan.recycling_machine.validator.RegisterValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +31,10 @@ public class UserInfoController {
 
     @Autowired
     UserHistoryService userHistoryService;
+
+    @InitBinder
+    private void pwdChangeValid(WebDataBinder binder) { binder.setValidator(new PwdChangeValidator());
+    }
 
     @GetMapping("/my")
     public String info(HttpServletRequest request){
@@ -44,7 +55,6 @@ public class UserInfoController {
     @PostMapping("/nameChange")
     @Transactional(rollbackFor = Exception.class)
     public String nameChange(@ModelAttribute(value = "name") String name, Errors error, HttpServletRequest request) {
-        // TODO: 2022/03/18 변경 사항 검사, 업데이트, 히스토리
 
         HttpSession session = request.getSession(false);
         UserAuthInfo authInfo = (UserAuthInfo) session.getAttribute("auth");
@@ -70,7 +80,6 @@ public class UserInfoController {
     @PostMapping("/emailChange")
     @Transactional(rollbackFor = Exception.class)
     public String emailChange(@ModelAttribute(value = "email") String email, Errors error, HttpServletRequest request) throws Exception {
-        // TODO: 2022/03/18 변경 사항 검사, 중복 검사, 업데이트, 히스토리
 
         HttpSession session = request.getSession(false);
         UserAuthInfo authInfo = (UserAuthInfo) session.getAttribute("auth");
@@ -97,4 +106,35 @@ public class UserInfoController {
         return "userInfoChange";
     }
 
+    @GetMapping("/pwdChange")
+    public String getPasswordChange(){
+
+        return "pwdChange";
+    }
+
+
+    @PostMapping("/pwdChange")
+    public String passwordChange(@ModelAttribute(value = "pwdChange") @Valid PwdChangeDto pwdChange, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+
+        if(!bindingResult.hasErrors()){
+
+            UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
+            UserDto user = userService.findById(authInfo.getId());
+
+            if(!pwdChange.getCurrent().equals(user.getPassword())){
+                // TODO: 2022/03/19  
+                return "pwdChange";
+            }
+            if(pwdChange.getNewPwd().equals(user.getPassword())){
+                // TODO: 2022/03/19
+                return "pwdChange";
+            }
+
+            return "pwdChange";
+        }
+//        if(current.length() >= 7 && current.equals(newPwd)){
+//            errors.rejectValue("newPwd", "noChange", "There is No Change");
+//        }else
+        return "pwdChange";
+    }
 }

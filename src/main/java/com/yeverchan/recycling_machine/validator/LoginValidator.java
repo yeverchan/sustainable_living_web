@@ -16,7 +16,6 @@ public class LoginValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        UserDto user = (UserDto) target;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "required", "Enter Id");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "required", "Enter password");

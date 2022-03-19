@@ -11,6 +11,6 @@
     <h1>${auth.name}</h1>
     <h1>${auth.amount}</h1>
     <a href="/manage/change"><button>Change Info</button></a>
-    <a href="/manage/passwordChange"><button>change password</button></a>
+    <a href="/manage/pwdChange"><button>change password</button></a>
 </body>
 </html>
