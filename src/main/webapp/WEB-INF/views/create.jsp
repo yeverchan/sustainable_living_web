@@ -26,5 +26,13 @@
     <button type="submit">submit</button>
     <div class="error_msg">${message}</div>
 </form:form>
+
+<c:if test="${!empty pageContext.request.getSession(false).getAttribute('com')}">
+    <script type="text/javascript">
+        alert("complete");
+        window.location.href='/';
+    </script>
+    ${pageContext.request.getSession(false).removeAttribute('com')}
+</c:if>
 </body>
 </html>

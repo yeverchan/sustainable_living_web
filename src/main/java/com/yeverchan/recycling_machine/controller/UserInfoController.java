@@ -59,7 +59,7 @@ public class UserInfoController {
 
         authInfo.setName(name);
         session.setAttribute("auth", authInfo);
-
+        session.setAttribute("com", "com");
         UserHistoryDto userHistory = new UserHistoryDto(authInfo.getId(), authInfo.getName(), authInfo.getEmail());
         userHistoryService.createHistory(userHistory);
 
@@ -88,7 +88,7 @@ public class UserInfoController {
 
         authInfo.setEmail(email);
         session.setAttribute("auth", authInfo);
-
+        session.setAttribute("com", "com");
         UserHistoryDto userHistory = new UserHistoryDto(authInfo.getId(), authInfo.getName(), authInfo.getEmail());
         userHistoryService.createHistory(userHistory);
 

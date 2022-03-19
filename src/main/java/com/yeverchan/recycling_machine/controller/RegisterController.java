@@ -47,11 +47,12 @@ public class RegisterController {
                 userService.register(register);
                 pointService.init(register.getId());
                 userHistoryService.createHistory(new UserHistoryDto(register.getId(), register.getName(), register.getEmail()));
+                request.getSession(false).setAttribute("com", "com");
             }catch (RuntimeException e){
                 request.setAttribute("message",  e.getMessage());
                 return "create";
             }
-            return "redirect:/";
+            return "create";
         }
         return "create";
     }

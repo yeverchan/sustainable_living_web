@@ -58,7 +58,7 @@ public class pwdChangeController {
             map.put("password", pwdChange.getNewPwd());
             map.put("id", authInfo.getId());
             userService.changePwd(map);
-
+            request.getSession(false).setAttribute("com", "com");
             return "pwdChange";
         }
 

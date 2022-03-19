@@ -22,8 +22,15 @@
         <label for="email">email</label>
         <input type="email" name="email" id="email" value="${auth.email}"/>
         <button type="submit">change</button>
-
     </form>
+
+    <c:if test="${!empty pageContext.request.getSession(false).getAttribute('com')}">
+        <script type="text/javascript">
+            alert("complete");
+        </script>
+        ${pageContext.request.getSession(false).removeAttribute('com')}
+    </c:if>
+
 </div>
 
 </body>
