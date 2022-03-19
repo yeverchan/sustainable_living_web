@@ -1,13 +1,11 @@
 package com.yeverchan.recycling_machine.service;
 
-import com.yeverchan.recycling_machine.domain.Point;
 import com.yeverchan.recycling_machine.domain.RegisterDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -45,7 +43,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Couldn't find account");
         }else {
             if(!target.getPassword().equals(user.getPassword())) {
-                throw new RuntimeException("Wrong Password");
+                throw new RuntimeException("incorrect Password");
             }
         }
 

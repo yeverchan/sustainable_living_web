@@ -50,9 +50,11 @@ public class LoginController {
             try{
                 UserAuthInfo authInfo = userService.login(user);
                 Point point = pointService.getPoint(user.getId());
+
                 authInfo.setAmount(point.getAmount());
                 HttpSession session = request.getSession(false);
                 session.setAttribute("auth", authInfo);
+
             }catch (RuntimeException e){
                 request.setAttribute("message", e.getMessage());
                 return "login";
