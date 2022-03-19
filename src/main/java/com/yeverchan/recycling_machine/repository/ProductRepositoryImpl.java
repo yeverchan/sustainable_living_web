@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ProductRepositoryImpl implements ProductRepository{
 
@@ -18,5 +20,10 @@ public class ProductRepositoryImpl implements ProductRepository{
     @Override
     public int insert(ProductDto product) {
         return sqlSession.insert(namespace+"insertProduct", product);
+    }
+
+    @Override
+    public List<ProductDto> selectAll(String user_id){
+        return sqlSession.selectList(namespace+"selectAllProduct", user_id);
     }
 }

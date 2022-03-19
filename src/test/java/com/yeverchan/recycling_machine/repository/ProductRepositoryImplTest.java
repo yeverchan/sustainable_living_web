@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 
@@ -24,5 +26,14 @@ public class ProductRepositoryImplTest {
         int check = productRepository.insert(product);
 
         assertEquals(1, check);
+    }
+
+    @Test
+    public void selectAllByUserId(){
+        List<ProductDto> product = productRepository.selectAll("testid");
+
+        assertNotNull(product);
+
+        System.out.println(product);
     }
 }
