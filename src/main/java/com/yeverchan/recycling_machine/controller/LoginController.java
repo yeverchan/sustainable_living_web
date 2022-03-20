@@ -31,10 +31,7 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(HttpServletRequest request) {
-//        if(request.getSession(false).getAttribute("auth") != null){
-//            return "redirect:/";
-//        }
+    public String login() {
         return "login";
     }
 
