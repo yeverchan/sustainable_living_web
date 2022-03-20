@@ -17,7 +17,7 @@ public class LoginFilter implements Filter {
         String path = request.getRequestURI();
         HttpSession session = request.getSession(false);
 
-        if (!PatternMatchUtils.simpleMatch(new String[]{"/", "/login", "/register/*"}, path)) {
+        if (!PatternMatchUtils.simpleMatch(new String[]{"/", "/login", "/register/*", "/resources/*"}, path)) {
             if (session == null || session.getAttribute("auth") == null) {
                 response.sendRedirect("/login");
                 return;
