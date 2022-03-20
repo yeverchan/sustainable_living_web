@@ -19,11 +19,7 @@ public class UserInfoController {
     UserService userService;
 
     @GetMapping("/my")
-    public String info(HttpServletRequest request){
-
-        if(request.getSession(false).getAttribute("auth") == null){
-            return "redirect:/login";
-        }
+    public String info(){
 
         // TODO: 2022/03/18 유저 검증
         return "userInfo";

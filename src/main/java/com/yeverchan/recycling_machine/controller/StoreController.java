@@ -18,5 +18,10 @@ public class StoreController {
     public String myInfo(){
         return "storeMyInfo";
     }
+
+    @GetMapping("/addProduct")
+    public String goAddProduct(){
+        return "addProduct";
+    }
 }
 
