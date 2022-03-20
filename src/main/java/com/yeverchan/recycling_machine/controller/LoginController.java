@@ -33,16 +33,17 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(HttpServletRequest request) {
-        if(request.getSession(false).getAttribute("auth") != null){
-            return "redirect:/";
+        HttpSession session = request.getSession(false);
+        if(session == null || session.getAttribute("auth") == null){
+            return "login";
         }
-        return "login";
+        return "home";
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession(false).invalidate();
-        return "redirect:/";
+        return "home";
     }
 
     @PostMapping("/login")

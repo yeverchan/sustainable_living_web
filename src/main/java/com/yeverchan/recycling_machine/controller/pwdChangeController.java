@@ -58,7 +58,7 @@ public class pwdChangeController {
             userService.changePwd(authInfo, pwdChange.getNewPwd());
             request.setAttribute("com", "com");
 
-            return "pwdChange";
+            return "userInfo";
         }
 
         return "pwdChange";

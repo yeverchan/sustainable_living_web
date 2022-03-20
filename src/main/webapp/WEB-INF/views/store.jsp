@@ -12,6 +12,7 @@
 </div>
 <div>
     <%--    get my Point    --%>
+    <%--    login check -> btn  --%>
     <h1>my point : </h1>
 </div>
 

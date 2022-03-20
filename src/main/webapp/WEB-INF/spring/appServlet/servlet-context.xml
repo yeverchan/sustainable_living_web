@@ -32,16 +32,11 @@
     </beans:bean>
 
     <interceptors>
-
         <beans:bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
             <beans:property name="cacheSeconds" value="0"/>
         </beans:bean>
-
     </interceptors>
-
 
     <!--home-->
     <view-controller path="/" view-name="home"/>
-
-
 </beans:beans>
