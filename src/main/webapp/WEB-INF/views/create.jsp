@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>create_account</title>
-    <link rel="stylesheet"  href="<c:url value="/resources/css/commons.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/commons.css"/>">
 </head>
 <body>
 <form:form modelAttribute="register">
@@ -16,7 +16,8 @@
     <input type="password" id="password" name="password" placeholder="password" value="${createTemp.password}">
     <div class="error_msg"><form:errors path="checkPassword"/></div>
     <label for="checkPassword">check password</label>
-    <input type="password" id="checkPassword" name="checkPassword" placeholder="check password" value="${createTemp.checkPassword}">
+    <input type="password" id="checkPassword" name="checkPassword" placeholder="check password"
+           value="${createTemp.checkPassword}">
     <div class="error_msg"><form:errors path="name"/></div>
     <label for="name">name</label>
     <input type="text" id="name" name="name" placeholder="name" value="${createTemp.name}">
@@ -27,12 +28,11 @@
     <div class="error_msg">${message}</div>
 </form:form>
 
-<c:if test="${!empty pageContext.request.getSession(false).getAttribute('com')}">
+<c:if test="${!empty com}">
     <script type="text/javascript">
         alert("complete");
-        window.location.href='/';
+        window.location.href = '/';
     </script>
-    ${pageContext.request.getSession(false).removeAttribute('com')}
 </c:if>
 </body>
 </html>

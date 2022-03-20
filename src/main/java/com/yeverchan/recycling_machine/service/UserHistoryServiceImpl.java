@@ -14,12 +14,12 @@ public class UserHistoryServiceImpl implements UserHistoryService{
     UserHistoryRepository userHistoryRepository;
 
     @Override
-    public List<UserHistoryDto> getUserHistories(String user_id) {
-        return userHistoryRepository.selectAllByUserId(user_id);
+    public int createHistory(UserHistoryDto userHistory) {
+        return userHistoryRepository.insert(userHistory);
     }
 
     @Override
-    public int createHistory(UserHistoryDto userHistory) {
-        return userHistoryRepository.insert(userHistory);
+    public List<UserHistoryDto> getUserHistories(String user_id) {
+        return userHistoryRepository.selectAllByUserId(user_id);
     }
 }

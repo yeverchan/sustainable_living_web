@@ -24,11 +24,10 @@
         <button type="submit">change</button>
     </form:form>
 
-    <c:if test="${!empty pageContext.request.getSession(false).getAttribute('com')}">
+    <c:if test="${!empty com}">
         <script type="text/javascript">
             alert("complete");
         </script>
-        ${pageContext.request.getSession(false).removeAttribute('com')}
     </c:if>
 </div>
 </body>

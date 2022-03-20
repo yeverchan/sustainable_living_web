@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @Controller
 public class pwdChangeController {
@@ -27,11 +26,12 @@ public class pwdChangeController {
     UserService userService;
 
     @InitBinder
-    private void pwdChangeValid(WebDataBinder binder) { binder.setValidator(new PwdChangeValidator());
+    private void pwdChangeValid(WebDataBinder binder) {
+        binder.setValidator(new PwdChangeValidator());
     }
 
     @GetMapping("/manage/pwdChange")
-    public String getPasswordChange(){
+    public String getPasswordChange() {
 
         return "pwdChange";
     }
@@ -40,25 +40,24 @@ public class pwdChangeController {
     @PostMapping("/manage/pwdChange")
     public String passwordChange(@ModelAttribute(value = "pwdChange") @Valid PwdChangeDto pwdChange, BindingResult bindingResult, HttpServletRequest request) throws Exception {
         request.setAttribute("pwd", pwdChange);
-        if(!bindingResult.hasErrors()){
+
+        if (!bindingResult.hasErrors()) {
 
             UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
             UserDto user = userService.findById(authInfo.getId());
 
-            if(!pwdChange.getCurrent().equals(user.getPassword())){
-                bindingResult.rejectValue("current","incorrect","incorrect Password");
+            if (!pwdChange.getCurrent().equals(user.getPassword())) {
+                bindingResult.rejectValue("current", "incorrect", "incorrect Password");
                 return "pwdChange";
             }
-            if(pwdChange.getNewPwd().equals(user.getPassword())){
-                bindingResult.rejectValue("newPwd","duplicated");
+            if (pwdChange.getNewPwd().equals(user.getPassword())) {
+                bindingResult.rejectValue("newPwd", "duplicated");
                 return "pwdChange";
             }
-//            request.getSession(false).removeAttribute("test");
-            Map<String, String> map = new HashMap<>();
-            map.put("password", pwdChange.getNewPwd());
-            map.put("id", authInfo.getId());
-            userService.changePwd(map);
-            request.getSession(false).setAttribute("com", "com");
+
+            userService.changePwd(authInfo, pwdChange.getNewPwd());
+            request.setAttribute("com", "com");
+
             return "pwdChange";
         }
 

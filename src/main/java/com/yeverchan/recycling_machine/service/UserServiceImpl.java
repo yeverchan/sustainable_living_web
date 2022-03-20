@@ -1,12 +1,13 @@
 package com.yeverchan.recycling_machine.service;
 
-import com.yeverchan.recycling_machine.domain.RegisterDto;
-import com.yeverchan.recycling_machine.domain.UserAuthInfo;
-import com.yeverchan.recycling_machine.domain.UserDto;
+import com.yeverchan.recycling_machine.domain.*;
 import com.yeverchan.recycling_machine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -14,6 +15,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserHistoryService userHistoryService;
 
     @Override
     public UserDto findById(String id) throws Exception {
@@ -23,17 +27,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findByEmail(String email) throws Exception {
         return userRepository.selectEmail(email);
-    }
-
-    @Override
-    public void register(RegisterDto register) throws Exception{
-        if(userRepository.selectEmail(register.getEmail()) != null){
-            throw new RuntimeException("duplicated email");
-        }
-        if (userRepository.select(register.getId()) != null){
-            throw new RuntimeException("duplicated id");
-        }
-        userRepository.insert(register);
     }
 
     @Override
@@ -51,17 +44,37 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changeName(Map<String, String> name) {
-        userRepository.updateName(name);
+    @Transactional(rollbackFor = Exception.class)
+    public void changeName(UserAuthInfo authInfo, String name) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("name", name);
+        map.put("id", authInfo.getId());
+        userRepository.updateName(map);
+
+        UserHistoryDto userHistory = new UserHistoryDto(authInfo.getId(), authInfo.getName(), authInfo.getEmail());
+        userHistoryService.createHistory(userHistory);
     }
 
     @Override
-    public void changeEmail(Map<String, String> email) {
-        userRepository.updateEmail(email);
+    @Transactional(rollbackFor = Exception.class)
+    public void changeEmail(UserAuthInfo authInfo, String email) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("email", email);
+        map.put("id", authInfo.getId());
+
+        userRepository.updateEmail(map);
+
+        UserHistoryDto userHistory = new UserHistoryDto(authInfo.getId(), authInfo.getName(), authInfo.getEmail());
+        userHistoryService.createHistory(userHistory);
     }
 
     @Override
-    public void changePwd(Map<String, String> pwd) {
-        userRepository.updatePwd(pwd);
+    public void changePwd(UserAuthInfo authInfo, String newPWd) {
+        Map<String, String> map = new HashMap<>();
+        map.put("password", newPWd);
+        map.put("id", authInfo.getId());
+        userRepository.updatePwd(map);
     }
 }

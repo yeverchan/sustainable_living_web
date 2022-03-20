@@ -14,7 +14,7 @@ public class PointRepositoryImpl implements PointRepository {
     String namespace = "com.yeverchan.recycling_machine.repository.BoardMapper.";
 
     @Override
-    public int init(String user_id){
+    public int init(String user_id) throws Exception{
 
         return sqlSession.insert(namespace+"insertPoint", user_id);
     }

@@ -1,19 +1,15 @@
 package com.yeverchan.recycling_machine.controller;
 
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
-import com.yeverchan.recycling_machine.domain.UserHistoryDto;
-import com.yeverchan.recycling_machine.service.UserHistoryService;
 import com.yeverchan.recycling_machine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @Controller
 @RequestMapping("/manage")
@@ -21,9 +17,6 @@ public class UserInfoController {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    UserHistoryService userHistoryService;
 
     @GetMapping("/my")
     public String info(HttpServletRequest request){
@@ -42,7 +35,6 @@ public class UserInfoController {
     }
 
     @PostMapping("/nameChange")
-    @Transactional(rollbackFor = Exception.class)
     public String nameChange(@ModelAttribute(value = "name") String name, Errors error, HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
@@ -52,22 +44,16 @@ public class UserInfoController {
             return "userInfoChange";
         }
 
-        Map<String, String> map = new HashMap<>();
-        map.put("name", name);
-        map.put("id", authInfo.getId());
-        userService.changeName(map);
+        userService.changeName(authInfo, name);
 
         authInfo.setName(name);
         session.setAttribute("auth", authInfo);
-        session.setAttribute("com", "com");
-        UserHistoryDto userHistory = new UserHistoryDto(authInfo.getId(), authInfo.getName(), authInfo.getEmail());
-        userHistoryService.createHistory(userHistory);
+        request.setAttribute("com", "com");
 
         return "userInfoChange";
     }
 
     @PostMapping("/emailChange")
-    @Transactional(rollbackFor = Exception.class)
     public String emailChange(@ModelAttribute(value = "email") String email, Errors error, HttpServletRequest request) throws Exception {
 
         HttpSession session = request.getSession(false);
@@ -81,16 +67,11 @@ public class UserInfoController {
             return "userInfoChange";
         }
 
-        Map<String, String> map = new HashMap<>();
-        map.put("email", email);
-        map.put("id", authInfo.getId());
-        userService.changeEmail(map);
+        userService.changeEmail(authInfo, email);
 
         authInfo.setEmail(email);
         session.setAttribute("auth", authInfo);
-        session.setAttribute("com", "com");
-        UserHistoryDto userHistory = new UserHistoryDto(authInfo.getId(), authInfo.getName(), authInfo.getEmail());
-        userHistoryService.createHistory(userHistory);
+        request.setAttribute("com", "com");
 
         return "userInfoChange";
     }
