@@ -18,10 +18,5 @@
     </div>
 </form:form>
 <div class="error_msg">${message}</div>
-<c:if test="${!empty pageContext.request.getSession(false).getAttribute('auth')}">
-    <script type="text/javascript">
-        window.location.href = '/';
-    </script>
-</c:if>
 </body>
 </html>

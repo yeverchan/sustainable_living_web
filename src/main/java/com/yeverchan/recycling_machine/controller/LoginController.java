@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -26,17 +27,20 @@ public class LoginController {
     PointService pointService;
 
     @InitBinder
-    private void loginValidator(WebDataBinder binder){
+    private void loginValidator(WebDataBinder binder) {
         binder.setValidator(new LoginValidator());
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(HttpServletRequest request) {
+        if(request.getSession(false).getAttribute("auth") != null){
+            return "redirect:/";
+        }
         return "login";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request) {
         request.getSession(false).invalidate();
         return "redirect:/";
     }
@@ -44,16 +48,16 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@ModelAttribute(value = "login") @Valid UserDto user, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 
-        if(!bindingResult.hasErrors()){
-            try{
+        if (!bindingResult.hasErrors()) {
+            try {
                 UserAuthInfo authInfo = userService.login(user);
                 Point point = pointService.getPoint(user.getId());
 
                 authInfo.setAmount(point.getAmount());
-                HttpSession session = request.getSession(false);
+                HttpSession session = request.getSession();
                 session.setAttribute("auth", authInfo);
-                return "login";
-            }catch (RuntimeException e){
+                return "home";
+            } catch (RuntimeException e) {
                 request.setAttribute("message", e.getMessage());
                 return "login";
             }
