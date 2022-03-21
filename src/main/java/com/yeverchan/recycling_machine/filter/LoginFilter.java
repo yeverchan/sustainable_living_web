@@ -19,6 +19,7 @@ public class LoginFilter implements Filter {
 
         if (!PatternMatchUtils.simpleMatch(new String[]{"/", "/login", "/register/*", "/resources/*"}, path)) {
             if (session == null || session.getAttribute("auth") == null) {
+                session.setAttribute("path", path);
                 response.sendRedirect("/login");
                 return;
             }

@@ -56,7 +56,9 @@ public class LoginController {
 
                 HttpSession session = request.getSession();
                 session.setAttribute("auth", authInfo);
-                return "home";
+                String path = session.getAttribute("path") == null ? "home" : (String) session.getAttribute("path");
+                session.removeAttribute("path");
+                return "redirect:"+path;
             } catch (LoginException e) {
                 request.setAttribute("message", e.getMessage());
                 return "login";
