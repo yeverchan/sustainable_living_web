@@ -1,7 +1,5 @@
 package com.yeverchan.recycling_machine.controller;
 
-
-import com.yeverchan.recycling_machine.domain.Point;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.handler.LoginException;
@@ -56,7 +54,7 @@ public class LoginController {
 
                 HttpSession session = request.getSession();
                 session.setAttribute("auth", authInfo);
-                String path = session.getAttribute("path") == null ? "home" : (String) session.getAttribute("path");
+                String path = session.getAttribute("path") == null ? "/" : (String) session.getAttribute("path");
                 session.removeAttribute("path");
                 return "redirect:"+path;
             } catch (LoginException e) {

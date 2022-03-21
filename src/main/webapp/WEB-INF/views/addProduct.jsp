@@ -23,7 +23,7 @@
 <c:if test="${!empty com}">
     <script type="text/javascript">
         alert("complete");
-        window.location.href = '/';
+        window.location.href = "<c:url value='/store/myInfo'/>";
     </script>
 </c:if>
 </body>

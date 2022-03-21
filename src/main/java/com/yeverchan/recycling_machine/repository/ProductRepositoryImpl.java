@@ -23,7 +23,7 @@ public class ProductRepositoryImpl implements ProductRepository{
     }
 
     @Override
-    public List<ProductDto> selectAll(String user_id){
+    public List<ProductDto> selectAllByUserId(String user_id){
         return sqlSession.selectList(namespace+"selectAllProduct", user_id);
     }
 }

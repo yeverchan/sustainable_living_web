@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;;
+import java.util.List;
 
 @Controller
 @RequestMapping("/store")
@@ -26,7 +27,17 @@ public class StoreController {
     }
 
     @GetMapping("/myInfo")
-    public String myInfo(){
+    public String myInfo(HttpServletRequest request){
+        UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
+
+        List<ProductDto> myProductList = productService.getMyProduct(authInfo.getId());
+
+        if(myProductList.size() == 0) {
+            return "storeMyInfo";
+        }else{
+            request.setAttribute("myProducts", myProductList);
+        }
+
         return "storeMyInfo";
     }
 
@@ -36,9 +47,9 @@ public class StoreController {
     }
 
     @PostMapping("/addProduct")
-    public String addProduct(@ModelAttribute(value = "product") ProductDto product, HttpSession session) throws Exception {
+    public String addProduct(@ModelAttribute(value = "product") ProductDto product, HttpServletRequest request) throws Exception {
 
-        UserAuthInfo authInfo = (UserAuthInfo) session.getAttribute("auth");
+        UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
         product.setUser_id(authInfo.getId());
 
         int check = productService.addProduct(product);
@@ -47,7 +58,9 @@ public class StoreController {
             throw new Exception();
         }
 
-        return "storeMyInfo";
+        request.setAttribute("com", "com");
+
+        return "addProduct";
     }
 }
 

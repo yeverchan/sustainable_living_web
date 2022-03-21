@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ProductRepository {
     int insert(ProductDto product);
-    List<ProductDto> selectAll(String user_id);
+    List<ProductDto> selectAllByUserId(String user_id);
 }

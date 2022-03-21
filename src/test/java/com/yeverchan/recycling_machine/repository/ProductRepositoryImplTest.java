@@ -30,7 +30,7 @@ public class ProductRepositoryImplTest {
 
     @Test
     public void selectAllByUserId(){
-        List<ProductDto> product = productRepository.selectAll("testid");
+        List<ProductDto> product = productRepository.selectAllByUserId("testid");
 
         assertNotNull(product);
 

@@ -5,6 +5,8 @@ import com.yeverchan.recycling_machine.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService{
 
@@ -14,5 +16,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public int addProduct(ProductDto productDto){
         return productRepository.insert(productDto);
+    }
+
+    @Override
+    public List<ProductDto> getMyProduct(String user_id){
+        return productRepository.selectAllByUserId(user_id);
     }
 }
