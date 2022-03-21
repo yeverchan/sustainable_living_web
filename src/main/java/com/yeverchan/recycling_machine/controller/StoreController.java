@@ -22,19 +22,23 @@ public class StoreController {
     ProductService productService;
 
     @GetMapping("/home")
-    public String home(){
+    public String home(HttpServletRequest request) {
+        List<ProductDto> AllProductList = productService.getAllProduct();
+        if (AllProductList.size() != 0) {
+            request.setAttribute("Products", AllProductList);
+        }
         return "store";
     }
 
     @GetMapping("/myInfo")
-    public String myInfo(HttpServletRequest request){
+    public String myInfo(HttpServletRequest request) {
         UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
 
         List<ProductDto> myProductList = productService.getMyProduct(authInfo.getId());
 
-        if(myProductList.size() == 0) {
+        if (myProductList.size() == 0) {
             return "storeMyInfo";
-        }else{
+        } else {
             request.setAttribute("myProducts", myProductList);
         }
 
@@ -42,7 +46,7 @@ public class StoreController {
     }
 
     @GetMapping("/addProduct")
-    public String goAddProduct(){
+    public String goAddProduct() {
         return "addProduct";
     }
 
@@ -54,7 +58,7 @@ public class StoreController {
 
         int check = productService.addProduct(product);
 
-        if(check != 1){
+        if (check != 1) {
             throw new Exception();
         }
 

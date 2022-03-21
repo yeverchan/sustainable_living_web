@@ -22,4 +22,9 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductDto> getMyProduct(String user_id){
         return productRepository.selectAllByUserId(user_id);
     }
+
+    @Override
+    public List<ProductDto> getAllProduct(){
+        return productRepository.selectAll();
+    }
 }

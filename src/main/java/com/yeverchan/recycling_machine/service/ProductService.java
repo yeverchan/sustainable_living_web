@@ -8,4 +8,5 @@ public interface ProductService {
     int addProduct(ProductDto productDto);
 
     List<ProductDto> getMyProduct(String user_id);
+    List<ProductDto> getAllProduct();
 }

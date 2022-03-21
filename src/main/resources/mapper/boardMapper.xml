@@ -60,7 +60,11 @@
         INSERT INTO product (user_id, name, description, price) values (#{user_id}, #{name}, #{description}, #{price})
     </insert>
 
-    <select id="selectAllProduct" parameterType="String" resultType="ProductDto">
+    <select id="selectAllProductByUserId" parameterType="String" resultType="ProductDto">
         SELECT user_id, name, description, price, created_At FROM product where user_id=#{user_id}
+    </select>
+
+    <select id="selectAllProduct" resultType="ProductDto">
+        SELECT user_id, name, description, price, created_At FROM product
     </select>
 </mapper>
