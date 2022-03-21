@@ -4,6 +4,7 @@ package com.yeverchan.recycling_machine.controller;
 import com.yeverchan.recycling_machine.domain.Point;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
+import com.yeverchan.recycling_machine.handler.LoginException;
 import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.UserService;
 import com.yeverchan.recycling_machine.validator.LoginValidator;
@@ -52,13 +53,11 @@ public class LoginController {
         if (!bindingResult.hasErrors()) {
             try {
                 UserAuthInfo authInfo = userService.login(user);
-                Point point = pointService.getPoint(user.getId());
 
-                authInfo.setAmount(point.getAmount());
                 HttpSession session = request.getSession();
                 session.setAttribute("auth", authInfo);
                 return "home";
-            } catch (RuntimeException e) {
+            } catch (LoginException e) {
                 request.setAttribute("message", e.getMessage());
                 return "login";
             }
