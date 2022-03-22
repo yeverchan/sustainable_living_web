@@ -67,4 +67,8 @@
     <select id="selectAllProduct" resultType="ProductDto">
         SELECT user_id, name, description, price, created_At FROM product
     </select>
+
+    <select id="selectByName" parameterType="String" resultType="ProductDto">
+        SELECT user_id, name, description, price, created_At FROM product where name=#{name}
+    </select>
 </mapper>

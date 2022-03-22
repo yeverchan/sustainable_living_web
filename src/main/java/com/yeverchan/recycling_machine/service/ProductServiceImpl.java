@@ -27,4 +27,9 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductDto> getAllProduct(){
         return productRepository.selectAll();
     }
+
+    @Override
+    public ProductDto getProduct(String product_name){
+        return productRepository.selectByName(product_name);
+    }
 }

@@ -9,4 +9,5 @@ public interface ProductRepository {
     int insert(ProductDto product);
     List<ProductDto> selectAll();
     List<ProductDto> selectAllByUserId(String user_id);
+    ProductDto selectByName(String product_name);
 }

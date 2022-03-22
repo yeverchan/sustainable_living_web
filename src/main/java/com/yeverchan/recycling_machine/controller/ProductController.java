@@ -1,13 +1,23 @@
 package com.yeverchan.recycling_machine.controller;
 
+import com.yeverchan.recycling_machine.domain.ProductDto;
+import com.yeverchan.recycling_machine.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("/product")
+@Controller
+@RequestMapping("/product")
 public class ProductController {
 
-    @GetMapping
-    public String detail(String product_name){
+    @Autowired
+    ProductService productService;
+
+    @GetMapping("/detail")
+    public String detail(String product){
+        ProductDto productDto = productService.getProduct(product);
+
 
         return "/detail";
     }

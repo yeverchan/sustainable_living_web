@@ -23,7 +23,7 @@
                     <td>${product.price}</td>
                     <td>${product.created_At}</td>
                     <td>
-                        <a href="/">detail</a>
+                        <a href="<c:url value="/product/detail?product=${product.name}"/>">detail</a>
                     </td>
                 </tr>
             </c:forEach>
