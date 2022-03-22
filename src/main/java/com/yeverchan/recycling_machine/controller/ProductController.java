@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/product")
@@ -16,11 +17,21 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/detail")
-    public String detail(String product, Model m){
+    public String detail(@RequestParam String product, Model m){
         ProductDto productDto = productService.getProduct(product);
 
         m.addAttribute("product", productDto);
 
-        return "/detail";
+        return "detail";
+    }
+
+    @GetMapping("/modify")
+    public String getModify(@RequestParam String product, Model m){
+
+        ProductDto productDto = productService.getProduct(product);
+
+        m.addAttribute("product", productDto);
+
+        return "modify";
     }
 }
