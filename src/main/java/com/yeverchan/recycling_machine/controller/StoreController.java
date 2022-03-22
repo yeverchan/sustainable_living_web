@@ -66,5 +66,6 @@ public class StoreController {
 
         return "addProduct";
     }
+
 }
 

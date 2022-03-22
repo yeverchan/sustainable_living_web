@@ -13,6 +13,11 @@ public class ProductDto {
     public ProductDto() {
     }
 
+    public ProductDto(String user_id, String name) {
+        this.user_id = user_id;
+        this.name = name;
+    }
+
     public ProductDto(String user_id, String name, String description, Long price){
         this.user_id = user_id;
         this.name = name;
