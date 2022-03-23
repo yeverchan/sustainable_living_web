@@ -24,7 +24,7 @@
                     <td>${product.price}</td>
                     <td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.created_At}"/></td>
                     <td>
-                        <a href="<c:url value="/product/detail?product=${product.name}"/>">detail</a>
+                        <a href="<c:url value="/store/detail?product=${product.name}&sign=${product.id}"/>">detail</a>
                     </td>
                 </tr>
             </c:forEach>

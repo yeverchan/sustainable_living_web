@@ -61,14 +61,18 @@
     </insert>
 
     <select id="selectAllProductByUserId" parameterType="String" resultType="ProductDto">
-        SELECT user_id, name, description, price, created_At FROM product where user_id=#{user_id}
+        SELECT id, user_id, name, description, price, created_At FROM product where user_id=#{user_id}
     </select>
 
     <select id="selectAllProduct" resultType="ProductDto">
-        SELECT user_id, name, description, price, created_At FROM product
+        SELECT id, user_id, name, description, price, created_At FROM product
     </select>
 
-    <select id="selectByName" parameterType="String" resultType="ProductDto">
-        SELECT user_id, name, description, price, created_At FROM product where name=#{name}
+    <select id="selectByNameAndId" parameterType="Map" resultType="ProductDto">
+        SELECT id, user_id, name, description, price, created_At FROM product where name=#{name} and id=#{id}
     </select>
+
+    <update id="updateProduct" parameterType="ProductDto">
+        UPDATE product SET name=#{name}, description=#{description}, price=#{price} where user_id=#{user_id} and id=#{id}
+    </update>
 </mapper>

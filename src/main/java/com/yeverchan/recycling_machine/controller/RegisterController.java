@@ -32,7 +32,7 @@ public class RegisterController {
     }
 
     @PostMapping("/create")
-    public String crete_account(@ModelAttribute(value = "register") @Valid RegisterDto register, BindingResult bindingResult, HttpServletRequest request){
+    public String create(@ModelAttribute(value = "register") @Valid RegisterDto register, BindingResult bindingResult, HttpServletRequest request){
 
         request.setAttribute("createTemp", register);
 

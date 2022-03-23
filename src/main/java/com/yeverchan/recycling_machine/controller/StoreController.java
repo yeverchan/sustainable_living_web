@@ -6,13 +6,15 @@ import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/store")
@@ -43,6 +45,18 @@ public class StoreController {
         }
 
         return "storeMyInfo";
+    }
+
+    @GetMapping("/detail")
+    public String detail(@RequestParam String product, @RequestParam String sign, Model m){
+        Map<String, String> map = new HashMap<>();
+        map.put("name", product);
+        map.put("id", sign);
+        ProductDto productDto = productService.getProduct(map);
+
+        m.addAttribute("product", productDto);
+
+        return "detail";
     }
 }
 

@@ -31,7 +31,7 @@ public class pwdChangeController {
     }
 
     @GetMapping("/manage/pwdChange")
-    public String getPasswordChange() {
+    public String passwordChange() {
 
         return "pwdChange";
     }

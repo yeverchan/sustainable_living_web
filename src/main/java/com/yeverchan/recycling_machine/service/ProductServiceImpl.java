@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -29,7 +30,12 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductDto getProduct(String product_name){
-        return productRepository.selectByName(product_name);
+    public ProductDto getProduct(Map<String, String> product){
+        return productRepository.selectByNameAndId(product);
+    }
+
+    @Override
+    public int modifyProduct(ProductDto productDto){
+        return productRepository.updateByUserId(productDto);
     }
 }

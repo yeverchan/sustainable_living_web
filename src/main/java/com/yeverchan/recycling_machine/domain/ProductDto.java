@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class ProductDto {
+    private int id;
     private String user_id;
     private String name;
     private String description;
@@ -23,6 +24,22 @@ public class ProductDto {
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    public ProductDto(Integer id ,String user_id, String name, String description, Long price){
+        this.id= id;
+        this.user_id = user_id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUser_id() {
@@ -70,18 +87,19 @@ public class ProductDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return Objects.equals(user_id, that.user_id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price) && Objects.equals(created_At, that.created_At);
+        return id == that.id && Objects.equals(user_id, that.user_id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price) && Objects.equals(created_At, that.created_At);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, name, description, price, created_At);
+        return Objects.hash(id, user_id, name, description, price, created_At);
     }
 
     @Override
     public String toString() {
         return "ProductDto{" +
-                "user_id='" + user_id + '\'' +
+                "id=" + id +
+                ", user_id='" + user_id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +

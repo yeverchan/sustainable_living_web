@@ -21,7 +21,7 @@ public class ProductRepositoryImplTest {
 
     @Test
     public void insertProductTest(){
-        ProductDto product = new ProductDto("testid","test bag", "this is a insert test", 1000L);
+        ProductDto product = new ProductDto(1, "testid","test bag", "this is a insert test", 1000L);
 
         int check = productRepository.insert(product);
 

@@ -12,7 +12,6 @@
     <h3 name="product_name">${product.name}</h3>
     <h3 name="product_price">${product.price}</h3>
     <h3 name="product_created"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${product.created_At}"/></h3>
-
 </div>
 <div>
     <h3 name="product_description">${product.description}</h3>
@@ -21,7 +20,7 @@
 <c:choose>
     <c:when test="${auth.id eq product.user_id}">
         <div>
-            <a href="<c:url value='/product/modify?product=${product.name}'/>"><button>modify</button></a>
+            <a href="<c:url value='/product/modify?product=${product.name}&sign=${product.id}'/>"><button>modify</button></a>
             <button>remove</button>
         </div>
     </c:when>

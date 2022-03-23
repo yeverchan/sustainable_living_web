@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository{
@@ -33,7 +34,12 @@ public class ProductRepositoryImpl implements ProductRepository{
     }
 
     @Override
-    public ProductDto selectByName(String product_name){
-        return sqlSession.selectOne(namespace+"selectByName", product_name);
+    public ProductDto selectByNameAndId(Map<String, String> product){
+        return sqlSession.selectOne(namespace+"selectByNameAndId", product);
+    }
+
+    @Override
+    public int updateByUserId(ProductDto productDto){
+        return sqlSession.update(namespace+"updateProduct", productDto);
     }
 }

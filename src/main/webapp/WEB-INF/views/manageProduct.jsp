@@ -3,19 +3,22 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>add product</title>
+    <title>${mode eq 'modify' ? "modify product" : "add product"}</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/commons.css"/>">
 </head>
 <body>
 <form:form modelAttribute="product">
-<%--    <div class="error_msg"><form:errors path="name"/></div>--%>
+    <%--    <div class="error_msg"><form:errors path="name"/></div>--%>
     <label for="name">name</label>
-    <input type="text" id="name" name="name" placeholder="product name" value="${createTemp.name}">
+    <input type="text" id="name" name="name" placeholder="product name" value="${product.name}">
     <label for="price">price</label>
-    <input type="text" id="price" name="price" placeholder="product price" value="${createTemp.price}">
+    <input type="text" id="price" name="price" placeholder="product price" value="${product.price}">
     <label for="description">description</label>
-    <textarea type="text" id="description" name="description" placeholder="product description" value="${createTemp.description}"></textarea>
-
+    <textarea type="text" id="description" name="description"
+              placeholder="product description">${product.description}</textarea>
+    <c:if test="${mode eq 'modify'}">
+        <input type="hidden" name="id" value="${product.id}"/>
+    </c:if>
     <button type="submit">submit</button>
     <div class="error_msg">${message}</div>
 </form:form>
