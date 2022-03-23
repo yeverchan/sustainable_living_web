@@ -25,11 +25,18 @@
     <div class="error_msg">${message}</div>
 </form:form>
 
-<c:if test="${!empty com}">
-    <script type="text/javascript">
-        alert("complete");
-        window.location.href = "<c:url value='/store/myInfo'/>";
-    </script>
-</c:if>
+<script type="text/javascript">
+<c:choose>
+    <c:when test="${com eq 'com'}">
+    alert("complete");
+    window.location.href = "<c:url value='/store/myInfo'/>";
+    </c:when>
+
+    <c:when test="${com eq 'error'}">
+    alert("error");
+    </c:when>
+</c:choose>
+
+</script>
 </body>
 </html>

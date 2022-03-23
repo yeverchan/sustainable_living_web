@@ -49,7 +49,13 @@ public class ProductController {
         UserAuthInfo authInfo = (UserAuthInfo) session.getAttribute("auth");
         productDto.setUser_id(authInfo.getId());
         if (!bindingResult.hasErrors()) {
-            productService.modifyProduct(productDto);
+            int check = productService.modifyProduct(productDto);
+
+            if(check != 1){
+                m.addAttribute("com", "error");
+                System.out.println("error");
+                return "manageProduct";
+            }
 
             m.addAttribute("com", "com");
 
@@ -72,7 +78,7 @@ public class ProductController {
         product.setUser_id(authInfo.getId());
 
 
-        if(!bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors()) {
             productService.addProduct(product);
             request.setAttribute("com", "com");
             return "manageProduct";
@@ -82,9 +88,9 @@ public class ProductController {
     }
 
     @PostMapping("/removeProduct")
-    public String remove(@RequestParam String name, @RequestParam String id, HttpServletRequest request){
+    public String remove(@RequestParam String name, @RequestParam String id, HttpServletRequest request) {
 
-        UserAuthInfo authInfo = (UserAuthInfo)request.getSession(false).getAttribute("auth");
+        UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
 
         Map<String, String> product = new HashMap<>();
         product.put("user_id", authInfo.getId());
