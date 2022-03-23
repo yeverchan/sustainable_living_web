@@ -33,6 +33,6 @@
         <h2> no items </h2>
     </c:otherwise>
 </c:choose>
-<a href="<c:url value='/store/addProduct'/>">Add a Product</a>
+<a href="<c:url value='/product/addProduct'/>">Add a Product</a>
 </body>
 </html>

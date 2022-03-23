@@ -44,28 +44,5 @@ public class StoreController {
 
         return "storeMyInfo";
     }
-
-    @GetMapping("/addProduct")
-    public String goAddProduct() {
-        return "addProduct";
-    }
-
-    @PostMapping("/addProduct")
-    public String addProduct(@ModelAttribute(value = "product") ProductDto product, HttpServletRequest request) throws Exception {
-
-        UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
-        product.setUser_id(authInfo.getId());
-
-        int check = productService.addProduct(product);
-
-        if (check != 1) {
-            throw new Exception();
-        }
-
-        request.setAttribute("com", "com");
-
-        return "addProduct";
-    }
-
 }
 
