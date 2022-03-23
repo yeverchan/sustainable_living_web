@@ -53,7 +53,6 @@ public class ProductController {
 
             if(check != 1){
                 m.addAttribute("com", "error");
-                System.out.println("error");
                 return "manageProduct";
             }
 
