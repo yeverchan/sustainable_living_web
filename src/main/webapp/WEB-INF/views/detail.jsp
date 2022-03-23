@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="auth" value="${pageContext.request.session.getAttribute('auth')}"/>
-
 <html>
 <head>
     <title>${product.name}</title>
@@ -17,15 +16,20 @@
 <div>
     <h3 name="product_description">${product.description}</h3>
 </div>
-<%--if writer == writer--%>
 <c:choose>
-    <c:when test="${auth.id eq product.user_id}">
+    <c:when test="${!empty product && !empty auth && auth.id eq product.user_id}">
         <div>
             <a href="<c:url value='/product/modify?product=${product.name}&sign=${product.id}'/>"><button>modify</button></a>
             <form action="<c:url value='/product/removeProduct?name=${product.name}&id=${product.id}'/>" method="post">
             <button>remove</button>
             </form>
         </div>
+    </c:when>
+    <c:when test="${!empty check && 'nfoundpd' eq check}">
+        <script type="text/javascript">
+            alert("this product has been deleted or does not exist.");
+            window.location.href = "<c:url value='/store/home'/>";
+        </script>
     </c:when>
     <c:otherwise>
         <div>

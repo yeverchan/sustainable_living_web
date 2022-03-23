@@ -2,7 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="auth" value="${pageContext.request.session.getAttribute('auth')}"/>
+<c:set var="auth" value="${pageContext.request.getSession(false).getAttribute('auth')}"/>
+<c:set var="com" value="${pageContext.request.getSession(false).getAttribute('com')}"/>
 <html>
 <head>
     <title>Store Home</title>
@@ -10,7 +11,6 @@
 <body>
 
 <div>
-    <%--    Product List    --%>
     <h1>product list</h1>
         <c:choose>
             <c:when test="${!empty Products}">
@@ -42,8 +42,6 @@
         </c:choose>
 </div>
 <div>
-    <%--    get my Point    --%>
-    <%--    login check -> btn  --%>
         <c:choose>
             <c:when test="${empty auth}">
                 ${pageContext.request.session.setAttribute('path', '/store/home')}
@@ -54,8 +52,12 @@
             </c:otherwise>
         </c:choose>
 </div>
-
 <a href="<c:url value='/store/myInfo'/>">myInfo</a>
-
+<c:if test="${!empty com}">
+    <script type="text/javascript">
+        alert("complete");
+        ${pageContext.request.getSession(false).removeAttribute('com')}
+    </script>
+</c:if>
 </body>
 </html>

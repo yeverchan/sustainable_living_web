@@ -48,13 +48,19 @@ public class StoreController {
     }
 
     @GetMapping("/detail")
-    public String detail(@RequestParam String product, @RequestParam String sign, Model m){
+    public String detail(@RequestParam String product, @RequestParam String sign, Model m) {
         Map<String, String> map = new HashMap<>();
         map.put("name", product);
         map.put("id", sign);
         ProductDto productDto = productService.getProduct(map);
 
+        if (productDto == null) {
+            m.addAttribute("check", "nfoundpd");
+            return "detail";
+        }
+
         m.addAttribute("product", productDto);
+        m.addAttribute("com", "com");
 
         return "detail";
     }

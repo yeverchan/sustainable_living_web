@@ -17,7 +17,6 @@
         <h1>${greeting}</h1>
     </ul>
 </ul>
-<%--check login--%>
 <div>
     <a href="<c:url value='/manage/my'/>">myInfo</a>
     <a href="<c:url value='/store/home'/>">store</a>

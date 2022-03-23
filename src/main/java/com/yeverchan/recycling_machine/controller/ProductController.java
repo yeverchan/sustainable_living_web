@@ -92,9 +92,9 @@ public class ProductController {
         product.put("name", name);
 
         productService.removeProduct(product);
-        request.setAttribute("com", "com");
+        request.getSession(false).setAttribute("com", "com");
 
-        return "redirect:/store/myInfo";
+        return "redirect:/store/home";
 
     }
 
