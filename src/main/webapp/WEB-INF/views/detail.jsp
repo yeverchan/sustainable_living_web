@@ -24,6 +24,11 @@
             <button>remove</button>
         </div>
     </c:when>
+    <c:otherwise>
+        <div>
+            <button>purchase</button>
+        </div>
+    </c:otherwise>
 </c:choose>
 </body>
 </html>

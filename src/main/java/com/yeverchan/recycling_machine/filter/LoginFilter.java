@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginFilter implements Filter {
-
+    static String[] publicList = new String[]{"/", "/login", "/register/*", "/resources/*", "/store/home", "/store/detail"};
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -17,7 +17,7 @@ public class LoginFilter implements Filter {
         String path = request.getRequestURI();
         HttpSession session = request.getSession(false);
 
-        if (!PatternMatchUtils.simpleMatch(new String[]{"/", "/login", "/register/*", "/resources/*", "/store/home"}, path)) {
+        if (!PatternMatchUtils.simpleMatch(publicList, path)) {
             if (session == null || session.getAttribute("auth") == null) {
                 session.setAttribute("path", path);
                 response.sendRedirect("/login");

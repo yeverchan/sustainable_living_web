@@ -3,13 +3,17 @@ package com.yeverchan.recycling_machine.controller;
 import com.yeverchan.recycling_machine.domain.ProductDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.service.ProductService;
+import com.yeverchan.recycling_machine.validator.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +23,12 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+
+    @InitBinder
+    private void productValid(WebDataBinder binder) {
+
+        binder.setValidator(new ProductValidator());
+    }
 
 
     @GetMapping("/modify")
@@ -35,13 +45,16 @@ public class ProductController {
     }
 
     @PostMapping("/modify")
-    public String modify(@ModelAttribute(value = "product") ProductDto productDto, HttpSession session, Model m) {
+    public String modify(@ModelAttribute(value = "product") @Valid ProductDto productDto, BindingResult bindingResult, HttpSession session, Model m) {
         UserAuthInfo authInfo = (UserAuthInfo) session.getAttribute("auth");
         productDto.setUser_id(authInfo.getId());
+        if (!bindingResult.hasErrors()) {
+            productService.modifyProduct(productDto);
 
-        productService.modifyProduct(productDto);
+            m.addAttribute("com", "com");
 
-        m.addAttribute("com", "com");
+            return "manageProduct";
+        }
 
         return "manageProduct";
     }
@@ -53,18 +66,17 @@ public class ProductController {
     }
 
     @PostMapping("/addProduct")
-    public String addProduct(@ModelAttribute(value = "product") ProductDto product, HttpServletRequest request) throws Exception {
+    public String addProduct(@ModelAttribute(value = "product") @Valid ProductDto product, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 
         UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
         product.setUser_id(authInfo.getId());
 
-        int check = productService.addProduct(product);
 
-        if (check != 1) {
-            throw new Exception();
+        if(!bindingResult.hasErrors()) {
+            productService.addProduct(product);
+            request.setAttribute("com", "com");
+            return "manageProduct";
         }
-
-        request.setAttribute("com", "com");
 
         return "manageProduct";
     }

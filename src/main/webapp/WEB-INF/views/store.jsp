@@ -29,6 +29,9 @@
                             <td>${product.price}</td>
                             <td>${product.user_id}</td>
                             <td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.created_At}"/></td>
+                            <td>
+                                <a href="<c:url value="/store/detail?product=${product.name}&sign=${product.id}"/>">detail</a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -43,6 +46,7 @@
     <%--    login check -> btn  --%>
         <c:choose>
             <c:when test="${empty auth}">
+                ${pageContext.request.session.setAttribute('path', '/store/home')}
                 <a href="<c:url value='/login'/>"><button>login</button></a>
             </c:when>
             <c:otherwise>
