@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
@@ -21,7 +22,7 @@
                 <tr>
                     <td>${product.name}</td>
                     <td>${product.price}</td>
-                    <td>${product.created_At}</td>
+                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.created_At}"/></td>
                     <td>
                         <a href="<c:url value="/product/detail?product=${product.name}"/>">detail</a>
                     </td>

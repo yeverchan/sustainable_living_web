@@ -1,6 +1,7 @@
 <%@ page session="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="auth" value="${pageContext.request.session.getAttribute('auth')}"/>
 <html>
 <head>
@@ -27,7 +28,7 @@
                             <td>${product.description}</td>
                             <td>${product.price}</td>
                             <td>${product.user_id}</td>
-                            <td>${product.created_At}</td>
+                            <td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.created_At}"/></td>
                         </tr>
                     </c:forEach>
                 </table>

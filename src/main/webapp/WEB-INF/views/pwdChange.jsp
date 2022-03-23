@@ -24,11 +24,7 @@
         <button type="submit">change</button>
     </form:form>
 
-    <c:if test="${!empty com}">
-        <script type="text/javascript">
-            alert("complete");
-        </script>
-    </c:if>
+
 </div>
 </body>
 </html>
