@@ -12,4 +12,5 @@ public interface ProductRepository {
     List<ProductDto> selectAllByUserId(String user_id);
     ProductDto selectByNameAndId(Map<String, String> product);
     int updateByUserId(ProductDto productDto);
+    int delete(Map<String, String> product);
 }

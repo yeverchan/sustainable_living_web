@@ -75,4 +75,8 @@
     <update id="updateProduct" parameterType="ProductDto">
         UPDATE product SET name=#{name}, description=#{description}, price=#{price} where user_id=#{user_id} and id=#{id}
     </update>
+
+    <delete id="deleteProduct" parameterType="Map">
+        DELETE FROM product WHERE user_id=#{user_id} and id=#{id} and name=#{name}
+    </delete>
 </mapper>

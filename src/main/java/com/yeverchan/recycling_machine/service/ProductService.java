@@ -11,4 +11,5 @@ public interface ProductService {
     List<ProductDto> getAllProduct();
     ProductDto getProduct(Map<String, String> product);
     int modifyProduct(ProductDto productDto);
+    int removeProduct(Map<String, String> product);
 }

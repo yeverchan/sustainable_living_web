@@ -35,6 +35,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public int removeProduct(Map<String, String> product){
+        return productRepository.delete(product);
+    }
+
+    @Override
     public int modifyProduct(ProductDto productDto){
         return productRepository.updateByUserId(productDto);
     }

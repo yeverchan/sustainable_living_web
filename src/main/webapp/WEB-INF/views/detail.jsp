@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="auth" value="${pageContext.request.session.getAttribute('auth')}"/>
 
 <html>
@@ -21,7 +22,9 @@
     <c:when test="${auth.id eq product.user_id}">
         <div>
             <a href="<c:url value='/product/modify?product=${product.name}&sign=${product.id}'/>"><button>modify</button></a>
+            <form action="<c:url value='/product/removeProduct?name=${product.name}&id=${product.id}'/>" method="post">
             <button>remove</button>
+            </form>
         </div>
     </c:when>
     <c:otherwise>

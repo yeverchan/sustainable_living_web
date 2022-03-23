@@ -81,4 +81,21 @@ public class ProductController {
         return "manageProduct";
     }
 
+    @PostMapping("/removeProduct")
+    public String remove(@RequestParam String name, @RequestParam String id, HttpServletRequest request){
+
+        UserAuthInfo authInfo = (UserAuthInfo)request.getSession(false).getAttribute("auth");
+
+        Map<String, String> product = new HashMap<>();
+        product.put("user_id", authInfo.getId());
+        product.put("id", id);
+        product.put("name", name);
+
+        productService.removeProduct(product);
+        request.setAttribute("com", "com");
+
+        return "redirect:/store/myInfo";
+
+    }
+
 }
