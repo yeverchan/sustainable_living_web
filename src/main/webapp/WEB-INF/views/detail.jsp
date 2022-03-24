@@ -33,7 +33,7 @@
     </c:when>
     <c:otherwise>
         <div>
-            <button>purchase</button>
+            <a href="<c:url value='/store/purchase'/>"><button>purchase</button></a>
         </div>
     </c:otherwise>
 </c:choose>

@@ -64,5 +64,10 @@ public class StoreController {
 
         return "detail";
     }
+
+    @GetMapping("/purchase")
+    public String purchase(){
+        return "purchase";
+    }
 }
 
