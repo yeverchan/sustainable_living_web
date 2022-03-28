@@ -61,15 +61,15 @@
     </insert>
 
     <select id="selectAllProductByUserId" parameterType="String" resultType="ProductDto">
-        SELECT id, user_id, name, description, price, created_At FROM product where user_id=#{user_id} ORDER BY created_At DESC
+        SELECT id, user_id, name, description, price, created_At, state FROM product where user_id=#{user_id} ORDER BY created_At DESC
     </select>
 
     <select id="selectAllProduct" resultType="ProductDto">
-        SELECT id, user_id, name, description, price, created_At FROM product ORDER BY created_At DESC
+        SELECT id, user_id, name, description, price, created_At , state FROM product ORDER BY created_At DESC
     </select>
 
     <select id="selectByNameAndId" parameterType="Map" resultType="ProductDto">
-        SELECT id, user_id, name, description, price, created_At FROM product where name=#{name} and id=#{id}
+        SELECT id, user_id, name, description, price, created_At , state FROM product where name=#{name} and id=#{id}
     </select>
 
     <update id="updateProduct" parameterType="ProductDto">

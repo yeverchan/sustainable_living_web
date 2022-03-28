@@ -8,8 +8,12 @@
 <head>
     <title>Store Home</title>
 </head>
+<style>
+    #forSale{
+        color: green;
+    }
+</style>
 <body>
-
 <div>
     <h1>product list</h1>
         <c:choose>
@@ -29,6 +33,7 @@
                             <td>${product.price}</td>
                             <td>${product.user_id}</td>
                             <td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.created_At}"/></td>
+                            <td id="${product.state eq 1 ? 'forSale' : 'error_msg'}">${product.state eq 1 ? 'For Sale' : 'error'}</td>
                             <td>
                                 <a href="<c:url value="/store/detail?product=${product.name}&sign=${product.id}"/>">detail</a>
                             </td>

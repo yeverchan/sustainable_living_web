@@ -9,6 +9,7 @@ public class ProductDto {
     private String name;
     private String description;
     private Long price;
+    private int state;
     private Date created_At;
 
     public ProductDto() {
@@ -82,17 +83,25 @@ public class ProductDto {
         this.created_At = created_At;
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return id == that.id && Objects.equals(user_id, that.user_id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price) && Objects.equals(created_At, that.created_At);
+        return id == that.id && state == that.state && Objects.equals(user_id, that.user_id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price) && Objects.equals(created_At, that.created_At);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user_id, name, description, price, created_At);
+        return Objects.hash(id, user_id, name, description, price, state, created_At);
     }
 
     @Override
@@ -103,6 +112,7 @@ public class ProductDto {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", state=" + state +
                 ", created_At=" + created_At +
                 '}';
     }

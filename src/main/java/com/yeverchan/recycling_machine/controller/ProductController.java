@@ -50,7 +50,6 @@ public class ProductController {
         productDto.setUser_id(authInfo.getId());
         if (!bindingResult.hasErrors()) {
             int check = productService.modifyProduct(productDto);
-
             if(check != 1){
                 m.addAttribute("com", "error");
                 return "manageProduct";

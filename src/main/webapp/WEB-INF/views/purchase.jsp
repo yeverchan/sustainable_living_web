@@ -11,8 +11,12 @@
     <title>purchase</title>
 </head>
 <body>
-    <h1>store</h1>
-<%--    order form  --%>
-<%--    order check  --%>
+<form name="form" id="form" method="post">
+    <input type="text" name="ordererName">
+    <input type="text" name="ordererAddress">
+    <input type="text" name="ordererPhone">
+
+    <input type="button" onClick="getAddr();" value="주소검색하기"/>
+</form>
 </body>
 </html>
