@@ -43,4 +43,9 @@ public class ProductServiceImpl implements ProductService{
     public int modifyProduct(ProductDto productDto){
         return productRepository.updateByUserId(productDto);
     }
+
+    @Override
+    public int updateState(ProductDto productDto){
+        return productRepository.updateProductState(productDto);
+    }
 }

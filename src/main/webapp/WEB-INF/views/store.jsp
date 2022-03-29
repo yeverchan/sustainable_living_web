@@ -60,5 +60,10 @@
         ${pageContext.request.getSession(false).removeAttribute('com')}
     </script>
 </c:if>
+<c:if test="${!empty check && 'compleTx' eq check}">
+    <script type="text/javascript">
+        alert("transaction complete");
+    </script>
+</c:if>
 </body>
 </html>

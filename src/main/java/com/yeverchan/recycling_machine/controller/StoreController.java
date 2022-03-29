@@ -91,23 +91,34 @@ public class StoreController {
     }
 
     @PostMapping("/purchase")
-    public String purchase(@ModelAttribute(value = "order") @RequestParam Map<String, String> order, HttpServletRequest request, RedirectAttributes attributes){
+    public String purchase(@ModelAttribute(value = "order") @RequestParam Map<String, String> order, HttpServletRequest request, RedirectAttributes attributes) throws Exception {
         ProductDto productDto = getProduct(order.get("name"), order.get("id"));
+        UserAuthInfo auth = (UserAuthInfo) request.getSession(false).getAttribute("auth");
+        String ordererId = auth.getId();
         String path = request.getHeader("referer");
 
         if(productDto.getState() != 1){
             attributes.addFlashAttribute("check", "ntexso");
             return "redirect:"+path;
         }
-        Long amount = pointService.getPoint(order.get("ordererId"));
+        Long amount = pointService.getPoint(ordererId);
         if(productDto.getPrice() > amount){
             attributes.addFlashAttribute("check", "nenopp");
             return "redirect:"+path;
         }
 
+        boolean check = pointService.calculatePoint(productDto, ordererId);
 
+        if(!check){
+            attributes.addFlashAttribute("check", "txerror");
+            return "redirect:"+path;
+        }
 
-        return "purchase";
+        productDto.setState(0);
+        productService.updateState(productDto);
+
+        attributes.addFlashAttribute("check", "compleTx");
+        return "redirect:/store/home";
     }
 
 

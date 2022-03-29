@@ -19,7 +19,6 @@
     <input type="text" id="number" name="ordererPhone">
     <input type="hidden" name="id" value="${product.id}">
     <input type="hidden" name="productName" value="${product.name}">
-    <input type="hidden" name="ordererId" value="${auth.id}">
     <h3>${product.price}</h3>
     <button>purchase</button>
 </form:form>
@@ -33,6 +32,12 @@
 <c:if test="${!empty check && 'nenopp' eq check}">
     <script type="text/javascript">
         alert("insufficient points");
+        window.location.href = "<c:url value="/store/detail?product=${product.name}&sign=${product.id}"/>";
+    </script>
+</c:if>
+<c:if test="${!empty check && 'txerror' eq check}">
+    <script type="text/javascript">
+        alert("transaction error");
         window.location.href = "<c:url value="/store/detail?product=${product.name}&sign=${product.id}"/>";
     </script>
 </c:if>
