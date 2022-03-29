@@ -47,4 +47,9 @@ public class ProductRepositoryImpl implements ProductRepository{
     public int delete(Map<String, String> product){
         return sqlSession.delete(namespace+"deleteProduct", product);
     }
+
+    @Override
+    public int updateProductState(ProductDto product){
+        return sqlSession.update(namespace+"updateProductState", product);
+    }
 }

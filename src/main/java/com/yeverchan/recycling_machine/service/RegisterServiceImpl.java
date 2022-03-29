@@ -21,7 +21,7 @@ public class RegisterServiceImpl implements RegisterService {
     UserHistoryService userHistoryService;
 
     @Override
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class)
     public void register(RegisterDto register) throws Exception{
         if(userRepository.selectEmail(register.getEmail()) != null){
             throw new RuntimeException("duplicated email");

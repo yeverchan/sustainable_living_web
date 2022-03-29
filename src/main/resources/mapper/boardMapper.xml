@@ -45,6 +45,10 @@
         SELECT amount FROM point WHERE user_id = #{id}
     </select>
 
+    <update id="updatePoint" parameterType="Map">
+        UPDATE point SET amount=#{amount}, updated_At=now() where user_id=#{user_id}
+    </update>
+
     <!--    userHistory   -->
 
     <select id="selectAllHistory" parameterType="String" resultType="UserHistory">
@@ -74,6 +78,10 @@
 
     <update id="updateProduct" parameterType="ProductDto">
         UPDATE product SET name=#{name}, description=#{description}, price=#{price} where user_id=#{user_id} and id=#{id}
+    </update>
+
+    <update id="updateProductState" parameterType="ProductDto">
+        UPDATE product SET state=#{state} where user_id=#{user_id} and id=#{id}
     </update>
 
     <delete id="deleteProduct" parameterType="Map">

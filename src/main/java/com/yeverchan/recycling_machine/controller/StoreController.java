@@ -104,6 +104,9 @@ public class StoreController {
             attributes.addFlashAttribute("check", "nenopp");
             return "redirect:"+path;
         }
+
+
+
         return "purchase";
     }
 

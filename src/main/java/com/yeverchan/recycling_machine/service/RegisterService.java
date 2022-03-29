@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface RegisterService {
 
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     void register(RegisterDto register) throws Exception;
 
     int init(String user_id) throws Exception;

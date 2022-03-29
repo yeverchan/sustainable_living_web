@@ -13,4 +13,5 @@ public interface ProductRepository {
     ProductDto selectByNameAndId(Map<String, String> product);
     int updateByUserId(ProductDto productDto);
     int delete(Map<String, String> product);
+    int updateProductState(ProductDto product);
 }
