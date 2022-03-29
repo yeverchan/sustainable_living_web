@@ -92,7 +92,7 @@ public class StoreController {
 
     @PostMapping("/purchase")
     public String purchase(@ModelAttribute(value = "order") @RequestParam Map<String, String> order, HttpServletRequest request, RedirectAttributes attributes) throws Exception {
-        
+
         ProductDto productDto = getProduct(order.get("name"), order.get("id"));
         UserAuthInfo auth = (UserAuthInfo) request.getSession(false).getAttribute("auth");
         String ordererId = auth.getId();
@@ -108,7 +108,7 @@ public class StoreController {
             return "redirect:"+path;
         }
 
-        boolean check = pointService.calculatePoint(productDto, ordererId);
+        boolean check = pointService.txPoint(productDto, ordererId);
 
         if(!check){
             attributes.addFlashAttribute("check", "txerror");

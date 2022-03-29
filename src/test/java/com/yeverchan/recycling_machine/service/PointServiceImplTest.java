@@ -33,7 +33,7 @@ public class PointServiceImplTest {
         Long ordererBefore = pointService.getPoint("testqq");
 
         try {
-            boolean testValue = pointService.calculatePoint(productDto, "testqq");
+            boolean testValue = pointService.txPoint(productDto, "testqq");
         } catch (Exception e) {
         }
 
@@ -58,7 +58,7 @@ public class PointServiceImplTest {
         Long ordererBefore = pointService.getPoint("testqq");
 
         try {
-            boolean testValue = pointService.calculatePoint(productDto, "testqq");
+            boolean testValue = pointService.txPoint(productDto, "testqq");
         } catch (Exception e) {
         }
 

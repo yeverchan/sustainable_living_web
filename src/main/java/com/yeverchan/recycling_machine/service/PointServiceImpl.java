@@ -32,7 +32,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean calculatePoint(ProductDto product, String ordererId) throws Exception{
+    public boolean txPoint(ProductDto product, String ordererId) throws Exception{
         if (pointRepository.selectAmountById(ordererId) - product.getPrice() < 0) {
             return false;
         }
