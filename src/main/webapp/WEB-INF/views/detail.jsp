@@ -31,10 +31,13 @@
             window.location.href = "<c:url value='/store/home'/>";
         </script>
     </c:when>
-    <c:otherwise>
+    <c:when test="${auth.id ne product.user_id && product.state eq 1}">
         <div>
             <a href="<c:url value='/store/purchase?name=${product.name}&id=${product.id}'/>"><button>purchase</button></a>
         </div>
+    </c:when>
+    <c:otherwise>
+        <h6 style="color:red;">Sold Out</h6>
     </c:otherwise>
 </c:choose>
 </body>

@@ -12,6 +12,9 @@
     #forSale{
         color: green;
     }
+    #soldOut{
+        color: red;
+    }
 </style>
 <body>
 <div>
@@ -33,7 +36,7 @@
                             <td>${product.price}</td>
                             <td>${product.user_id}</td>
                             <td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.created_At}"/></td>
-                            <td id="${product.state eq 1 ? 'forSale' : 'error_msg'}">${product.state eq 1 ? 'For Sale' : 'Sold Out'}</td>
+                            <td id="${product.state eq 1 ? 'forSale' : 'soldOut'}">${product.state eq 1 ? 'For Sale' : 'Sold Out'}</td>
                             <td>
                                 <a href="<c:url value="/store/detail?product=${product.name}&sign=${product.id}"/>">detail</a>
                             </td>

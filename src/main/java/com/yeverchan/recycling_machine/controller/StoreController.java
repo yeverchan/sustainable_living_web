@@ -7,10 +7,7 @@ import com.yeverchan.recycling_machine.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;;
 import java.util.HashMap;
@@ -63,19 +60,27 @@ public class StoreController {
     }
 
     @GetMapping("/purchase")
-    public String purchase(String name, String id,Model m){
+    public String purchase(@RequestParam String name, @RequestParam String id,Model m){
         ProductDto productDto = getProduct(name, id);
-
+        m.addAttribute("product" , productDto);
         if (productDto == null) {
             m.addAttribute("check", "nfoundpd");
             return "detail";
         }
-
+        if(productDto.getState() != 1){
+            m.addAttribute("check", "ntexso");
+            return "purchase";
+        }
         return "purchase";
     }
 
     @PostMapping("/purchase")
-    public String purchase(HttpServletRequest request){
+    public String purchase(@ModelAttribute(value = "order") @RequestParam Map<String, String> order, Model m){
+        ProductDto productDto = getProduct(order.get("name"), order.get("id"));
+        if(productDto.getState() != 1){
+            m.addAttribute("check", "ntexso");
+            return "purchase";
+        }
         return "purchase";
     }
 
