@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,11 +49,8 @@ public class StoreController {
     }
 
     @GetMapping("/detail")
-    public String detail(@RequestParam String product, @RequestParam String sign, Model m) {
-        Map<String, String> map = new HashMap<>();
-        map.put("name", product);
-        map.put("id", sign);
-        ProductDto productDto = productService.getProduct(map);
+    public String detail(@RequestParam String product, @RequestParam String sign ,Model m) {
+        ProductDto productDto = getProduct(product, sign);
 
         if (productDto == null) {
             m.addAttribute("check", "nfoundpd");
@@ -61,13 +59,32 @@ public class StoreController {
 
         m.addAttribute("product", productDto);
         m.addAttribute("com", "com");
-
         return "detail";
     }
 
     @GetMapping("/purchase")
-    public String purchase(){
+    public String purchase(String name, String id,Model m){
+        ProductDto productDto = getProduct(name, id);
+
+        if (productDto == null) {
+            m.addAttribute("check", "nfoundpd");
+            return "detail";
+        }
+
         return "purchase";
+    }
+
+    @PostMapping("/purchase")
+    public String purchase(HttpServletRequest request){
+        return "purchase";
+    }
+
+
+    private ProductDto getProduct(String name, String id){
+        Map<String, String> map = new HashMap<>();
+        map.put("name", name);
+        map.put("id", id);
+        return productService.getProduct(map);
     }
 }
 

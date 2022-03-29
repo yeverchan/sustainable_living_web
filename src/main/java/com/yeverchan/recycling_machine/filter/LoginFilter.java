@@ -19,6 +19,11 @@ public class LoginFilter implements Filter {
 
         if (!PatternMatchUtils.simpleMatch(publicList, path)) {
             if (session == null || session.getAttribute("auth") == null) {
+                if(path.contains("purchase")){
+                    session.setAttribute("path", request.getHeader("referer"));
+                    response.sendRedirect("/login");
+                    return;
+                }
                 session.setAttribute("path", path);
                 response.sendRedirect("/login");
                 return;
