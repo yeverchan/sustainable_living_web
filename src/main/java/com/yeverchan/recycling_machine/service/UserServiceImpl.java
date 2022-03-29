@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService {
             }
         }
         UserAuthInfo authInfo = new UserAuthInfo(target.getId(), target.getEmail(), target.getName());
-        authInfo.setAmount(pointService.getPoint(user.getId()).getAmount());
 
         return authInfo;
     }

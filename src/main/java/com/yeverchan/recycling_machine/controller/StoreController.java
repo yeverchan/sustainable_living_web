@@ -3,11 +3,13 @@ package com.yeverchan.recycling_machine.controller;
 
 import com.yeverchan.recycling_machine.domain.ProductDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
+import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;;
 import java.util.HashMap;
@@ -21,9 +23,19 @@ public class StoreController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    PointService pointService;
+
     @GetMapping("/home")
     public String home(HttpServletRequest request) {
         List<ProductDto> AllProductList = productService.getAllProduct();
+
+        UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
+
+        if(authInfo != null){
+            request.setAttribute("point", pointService.getPoint(authInfo.getId()));
+        }
+
         if (AllProductList.size() != 0) {
             request.setAttribute("Products", AllProductList);
         }
@@ -46,12 +58,16 @@ public class StoreController {
     }
 
     @GetMapping("/detail")
-    public String detail(@RequestParam String product, @RequestParam String sign ,Model m) {
+    public String detail(@RequestParam String product, @RequestParam String sign ,HttpServletRequest request ,Model m) {
         ProductDto productDto = getProduct(product, sign);
-
+        UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
         if (productDto == null) {
             m.addAttribute("check", "nfoundpd");
             return "detail";
+        }
+
+        if(authInfo != null){
+            m.addAttribute("point", pointService.getPoint(authInfo.getId()));
         }
 
         m.addAttribute("product", productDto);
@@ -75,11 +91,18 @@ public class StoreController {
     }
 
     @PostMapping("/purchase")
-    public String purchase(@ModelAttribute(value = "order") @RequestParam Map<String, String> order, Model m){
+    public String purchase(@ModelAttribute(value = "order") @RequestParam Map<String, String> order, HttpServletRequest request, RedirectAttributes attributes){
         ProductDto productDto = getProduct(order.get("name"), order.get("id"));
+        String path = request.getHeader("referer");
+
         if(productDto.getState() != 1){
-            m.addAttribute("check", "ntexso");
-            return "purchase";
+            attributes.addFlashAttribute("check", "ntexso");
+            return "redirect:"+path;
+        }
+        Long amount = pointService.getPoint(order.get("ordererId"));
+        if(productDto.getPrice() > amount){
+            attributes.addFlashAttribute("check", "nenopp");
+            return "redirect:"+path;
         }
         return "purchase";
     }

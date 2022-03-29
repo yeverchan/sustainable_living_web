@@ -6,19 +6,11 @@ public class UserAuthInfo {
     private String id;
     private String name;
     private String email;
-    private Long amount;
 
     public UserAuthInfo(String id, String email, String name) {
         this.id = id;
         this.email = email;
         this.name = name;
-    }
-
-    public UserAuthInfo(String id, String email, String name, Long amount) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.amount = amount;
     }
 
     public String getId() {
@@ -45,25 +37,17 @@ public class UserAuthInfo {
         this.email = email;
     }
 
-    public Long getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Long amount) {
-        this.amount = amount;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserAuthInfo authInfo = (UserAuthInfo) o;
-        return Objects.equals(id, authInfo.id) && Objects.equals(name, authInfo.name) && Objects.equals(email, authInfo.email) && Objects.equals(amount, authInfo.amount);
+        return Objects.equals(id, authInfo.id) && Objects.equals(name, authInfo.name) && Objects.equals(email, authInfo.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, amount);
+        return Objects.hash(id, name, email);
     }
 
     @Override
@@ -72,7 +56,6 @@ public class UserAuthInfo {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", amount=" + amount +
                 '}';
     }
 }

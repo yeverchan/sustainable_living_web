@@ -30,4 +30,10 @@
         window.location.href = "<c:url value='/store/home'/>";
     </script>
 </c:if>
+<c:if test="${!empty check && 'nenopp' eq check}">
+    <script type="text/javascript">
+        alert("insufficient points");
+        window.location.href = "<c:url value="/store/detail?product=${product.name}&sign=${product.id}"/>";
+    </script>
+</c:if>
 </html>

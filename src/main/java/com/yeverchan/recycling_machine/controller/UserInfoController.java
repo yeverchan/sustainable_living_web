@@ -1,6 +1,8 @@
 package com.yeverchan.recycling_machine.controller;
 
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
+import com.yeverchan.recycling_machine.domain.UserDto;
+import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,15 +20,21 @@ public class UserInfoController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/my")
-    public String info(){
+    @Autowired
+    PointService pointService;
 
-        // TODO: 2022/03/18 유저 검증
+    @GetMapping("/my")
+    public String info(HttpServletRequest request) throws Exception{
+        UserAuthInfo auth = (UserAuthInfo) request.getSession(false).getAttribute("auth");
+
+        UserDto user = userService.findById(auth.getId());
+        Long point = pointService.getPoint(user.getId());
+        request.setAttribute("point", point);
         return "userInfo";
     }
 
     @GetMapping("/change")
-    public String changeInfo(){
+    public String changeInfo() {
         return "userInfoChange";
     }
 
@@ -35,7 +43,7 @@ public class UserInfoController {
 
         HttpSession session = request.getSession(false);
         UserAuthInfo authInfo = (UserAuthInfo) session.getAttribute("auth");
-        if(name.equals(authInfo.getName())){
+        if (name.equals(authInfo.getName())) {
             error.reject(name, "There is no change");
             return "userInfoChange";
         }
@@ -54,11 +62,11 @@ public class UserInfoController {
 
         HttpSession session = request.getSession(false);
         UserAuthInfo authInfo = (UserAuthInfo) session.getAttribute("auth");
-        if(email.equals(authInfo.getEmail())){
+        if (email.equals(authInfo.getEmail())) {
             error.reject(email, "There is no change");
             return "userInfoChange";
         }
-        if(userService.findByEmail(email) != null){
+        if (userService.findByEmail(email) != null) {
             error.reject(email, "Duplicated email");
             return "userInfoChange";
         }

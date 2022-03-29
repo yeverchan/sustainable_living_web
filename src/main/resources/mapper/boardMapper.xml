@@ -41,7 +41,7 @@
         INSERT INTO point (user_id) VALUES (#{user_id})
     </insert>
     
-    <select id="selectPointById" parameterType="String" resultType="Point">
+    <select id="selectPointById" parameterType="String" resultType="Long">
         SELECT amount FROM point WHERE user_id = #{id}
     </select>
 

@@ -56,7 +56,7 @@
                 <a href="<c:url value='/login'/>"><button>login</button></a>
             </c:when>
             <c:otherwise>
-                <h1>my point : ${auth.amount}</h1>
+                <h3>my point : ${point}</h3>
             </c:otherwise>
         </c:choose>
 </div>

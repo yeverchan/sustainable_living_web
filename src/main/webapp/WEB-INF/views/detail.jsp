@@ -19,9 +19,11 @@
 <c:choose>
     <c:when test="${!empty product && !empty auth && auth.id eq product.user_id}">
         <div>
-            <a href="<c:url value='/product/modify?product=${product.name}&sign=${product.id}'/>"><button>modify</button></a>
+            <a href="<c:url value='/product/modify?product=${product.name}&sign=${product.id}'/>">
+                <button>modify</button>
+            </a>
             <form action="<c:url value='/product/removeProduct?name=${product.name}&id=${product.id}'/>" method="post">
-            <button>remove</button>
+                <button>remove</button>
             </form>
         </div>
     </c:when>
@@ -33,12 +35,24 @@
     </c:when>
     <c:when test="${auth.id ne product.user_id && product.state eq 1}">
         <div>
-            <a href="<c:url value='/store/purchase?name=${product.name}&id=${product.id}'/>"><button>purchase</button></a>
+            <c:choose>
+                <c:when test="${product.price > point}">
+                    <a href="" onclick="alert('insufficient points')">
+                </c:when>
+
+                <c:otherwise>
+                    <a href="<c:url value='/store/purchase?name=${product.name}&id=${product.id}'/>">
+                </c:otherwise>
+            </c:choose>
+
+                    <button>purchase</button>
+                    </a>
         </div>
     </c:when>
     <c:otherwise>
         <h6 style="color:red;">Sold Out</h6>
     </c:otherwise>
 </c:choose>
+
 </body>
 </html>

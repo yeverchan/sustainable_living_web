@@ -14,7 +14,7 @@ public class PointServiceImpl implements PointService {
     PointRepository pointRepository;
 
     @Override
-    public Point getPoint(String user_id){
+    public Long getPoint(String user_id){
         return pointRepository.selectById(user_id);
     }
 

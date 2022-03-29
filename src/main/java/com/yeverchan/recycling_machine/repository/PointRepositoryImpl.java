@@ -20,7 +20,7 @@ public class PointRepositoryImpl implements PointRepository {
     }
 
     @Override
-    public Point selectById(String user_id){
+    public Long selectById(String user_id){
         return sqlSession.selectOne(namespace+"selectPointById", user_id);
     }
 }

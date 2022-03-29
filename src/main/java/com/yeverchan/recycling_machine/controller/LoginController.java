@@ -3,7 +3,6 @@ package com.yeverchan.recycling_machine.controller;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.handler.LoginException;
-import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.UserService;
 import com.yeverchan.recycling_machine.validator.LoginValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class LoginController {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    PointService pointService;
 
     @InitBinder
     private void loginValidator(WebDataBinder binder) {
