@@ -1,6 +1,5 @@
 package com.yeverchan.recycling_machine.repository;
 
-import com.yeverchan.recycling_machine.domain.Point;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,8 +21,12 @@ public class PointRepositoryImpl implements PointRepository {
     }
 
     @Override
-    public Long selectById(String user_id) {
-        return sqlSession.selectOne(namespace + "selectPointById", user_id);
+    public Long selectAmountById(String user_id) {
+        return sqlSession.selectOne(namespace + "selectAmountById", user_id);
+    }
+    @Override
+    public int selectIdByUserId(String user_id) {
+        return sqlSession.selectOne(namespace + "selectIdByUserId", user_id);
     }
 
     @Override

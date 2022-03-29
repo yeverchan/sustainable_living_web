@@ -1,21 +1,20 @@
 package com.yeverchan.recycling_machine.domain;
 
-public class Point {
+public class PointDto {
     private Integer id;
     private String user_id;
     private Long amount;
 
-    public Point(String user_id) {
+    public PointDto(String user_id) {
         this.user_id = user_id;
     }
 
-    public Point(Long amount) {
+    public PointDto(Long amount) {
         this.amount = amount;
     }
 
-    public Point(String user_id, Long amount) {
-        this.user_id = user_id;
-        this.amount = amount;
+    public PointDto(Integer id) {
+        this.id = id;
     }
 
     public Integer getId(){

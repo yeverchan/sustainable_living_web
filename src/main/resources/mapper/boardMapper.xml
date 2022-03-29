@@ -41,8 +41,12 @@
         INSERT INTO point (user_id) VALUES (#{user_id})
     </insert>
     
-    <select id="selectPointById" parameterType="String" resultType="Long">
-        SELECT amount FROM point WHERE user_id = #{id}
+    <select id="selectAmountById" parameterType="String" resultType="Long">
+        SELECT amount FROM point WHERE user_id = #{user_id}
+    </select>
+
+    <select id="selectIdByUserId" parameterType="String" resultType="int">
+        SELECT id FROM point WHERE user_id = #{user_id}
     </select>
 
     <update id="updatePoint" parameterType="Map">
@@ -60,6 +64,7 @@
     </insert>
 
     <!--    product    -->
+
     <insert id="insertProduct" parameterType="ProductDto">
         INSERT INTO product (user_id, name, description, price) values (#{user_id}, #{name}, #{description}, #{price})
     </insert>
@@ -87,4 +92,9 @@
     <delete id="deleteProduct" parameterType="Map">
         DELETE FROM product WHERE user_id=#{user_id} and id=#{id} and name=#{name}
     </delete>
+
+    <!--    pointHistory   -->
+    <insert id="insertPointHistory" parameterType="PointHistory">
+        INSERT INTO point_history (point_id, service_type, service_description, amount) values (#{point_id}, #{service_type}, #{service_description}, #{amount})
+    </insert>
 </mapper>

@@ -26,7 +26,7 @@ public class PointRepositoryImplTest {
         map.put("user_id", "zxcvzxcv");
         pointRepository.updatePoint(map);
 
-        Long testValue = pointRepository.selectById("zxcvzxcv");
+        Long testValue = pointRepository.selectAmountById("zxcvzxcv");
 
         assertEquals((Long) 600L, testValue);
     }
