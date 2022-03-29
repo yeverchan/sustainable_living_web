@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class PointHistoryRepositoryImpl implements PointHistoryRepository {
 
@@ -16,5 +18,10 @@ public class PointHistoryRepositoryImpl implements PointHistoryRepository {
     @Override
     public int insertHistory(PointHistoryDto pointHistoryDto){
         return sqlSession.insert(namespace+"insertPointHistory", pointHistoryDto);
+    }
+
+    @Override
+    public List<PointHistoryDto> selectAllById(int point_id){
+        return sqlSession.selectList(namespace+"selectAllPointHistoryByPointId", point_id);
     }
 }

@@ -10,8 +10,9 @@
     <h1>email : ${auth.email}</h1>
     <h1>name : ${auth.name}</h1>
     <h1>point : ${point}</h1>
-    <a href="/manage/change"><button>Change Info</button></a>
+    <a href="/manage/change"><button>change Info</button></a>
     <a href="/manage/pwdChange"><button>change password</button></a>
+    <a href="/manage/point/list"><button>point history</button></a>
 </body>
 <c:if test="${!empty com}">
     <script type="text/javascript">

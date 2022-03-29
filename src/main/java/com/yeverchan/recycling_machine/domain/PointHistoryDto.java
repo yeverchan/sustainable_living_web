@@ -21,6 +21,14 @@ public class PointHistoryDto {
         this.amount = amount;
     }
 
+    public PointHistoryDto(int point_id, String service_type, String service_description, Long amount, Date created_At) {
+        this.point_id = point_id;
+        this.service_type = service_type;
+        this.service_description = service_description;
+        this.amount = amount;
+        this.created_At = created_At;
+    }
+
     public int getId() {
         return id;
     }

@@ -97,4 +97,8 @@
     <insert id="insertPointHistory" parameterType="PointHistory">
         INSERT INTO point_history (point_id, service_type, service_description, amount) values (#{point_id}, #{service_type}, #{service_description}, #{amount})
     </insert>
+
+    <select id="selectAllPointHistoryByPointId" parameterType="int" resultType="PointHistory">
+        SELECT point_id, service_type, service_description, amount, created_At  FROM point_history where point_id=#{point_id} ORDER BY created_At DESC
+    </select>
 </mapper>

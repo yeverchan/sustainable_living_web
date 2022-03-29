@@ -92,6 +92,7 @@ public class StoreController {
 
     @PostMapping("/purchase")
     public String purchase(@ModelAttribute(value = "order") @RequestParam Map<String, String> order, HttpServletRequest request, RedirectAttributes attributes) throws Exception {
+        
         ProductDto productDto = getProduct(order.get("name"), order.get("id"));
         UserAuthInfo auth = (UserAuthInfo) request.getSession(false).getAttribute("auth");
         String ordererId = auth.getId();

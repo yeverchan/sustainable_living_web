@@ -1,7 +1,10 @@
 package com.yeverchan.recycling_machine.controller;
 
+import com.yeverchan.recycling_machine.domain.PointHistoryDto;
+import com.yeverchan.recycling_machine.domain.ProductDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
+import com.yeverchan.recycling_machine.service.PointHistoryService;
 import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -22,6 +26,9 @@ public class UserInfoController {
 
     @Autowired
     PointService pointService;
+
+    @Autowired
+    PointHistoryService pointHistoryService;
 
     @GetMapping("/my")
     public String info(HttpServletRequest request) throws Exception{
@@ -80,5 +87,21 @@ public class UserInfoController {
         return "userInfoChange";
     }
 
+    @GetMapping("/point/list")
+    public String pointHistory(HttpServletRequest request){
+
+
+        UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
+        System.out.println(authInfo);
+        if(authInfo != null){
+            List<PointHistoryDto> AllHistoryList = pointHistoryService.getAllHistory(authInfo.getId());
+            System.out.println(AllHistoryList);
+            if (AllHistoryList.size() != 0) {
+                request.setAttribute("histories", AllHistoryList);
+            }
+        }
+
+        return "pointHistory";
+    }
 
 }
