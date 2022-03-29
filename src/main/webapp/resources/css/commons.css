@@ -2,7 +2,10 @@
     color: red;
 }
 
-#testcolor{
-    color: blue;
-    height: 5000px;
+#forSale{
+    color: green;
+}
+
+#soldOut{
+    color: red;
 }

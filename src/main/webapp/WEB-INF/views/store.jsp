@@ -7,15 +7,8 @@
 <html>
 <head>
     <title>Store Home</title>
+    <link rel="stylesheet"  href="<c:url value="/resources/css/commons.css"/>">
 </head>
-<style>
-    #forSale{
-        color: green;
-    }
-    #soldOut{
-        color: red;
-    }
-</style>
 <body>
 <div>
     <h1>product list</h1>

@@ -19,9 +19,11 @@
 <c:choose>
     <c:when test="${!empty product && !empty auth && auth.id eq product.user_id}">
         <div>
+            <c:if test="${product.state == 1}">
             <a href="<c:url value='/product/modify?product=${product.name}&sign=${product.id}'/>">
                 <button>modify</button>
             </a>
+            </c:if>
             <form action="<c:url value='/product/removeProduct?name=${product.name}&id=${product.id}'/>" method="post">
                 <button>remove</button>
             </form>

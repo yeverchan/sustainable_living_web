@@ -5,12 +5,8 @@
 <html>
 <head>
     <title>My info</title>
+    <link rel="stylesheet"  href="<c:url value="/resources/css/commons.css"/>">
 </head>
-<style>
-    #forSale{
-        color: green;
-    }
-</style>
 <body>
 <c:choose>
     <c:when test="${!empty myProducts}">
@@ -25,7 +21,7 @@
                     <td>${product.name}</td>
                     <td>${product.price}</td>
                     <td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.created_At}"/></td>
-                    <td id="${product.state eq 1 ? 'forSale' : 'error_msg'}">${product.state eq 1 ? 'For Sale' : 'Sold Out'}</td>
+                    <td id="${product.state eq 1 ? 'forSale' : 'soldOut'}">${product.state eq 1 ? 'For Sale' : 'Sold Out'}</td>
                     <td>
                         <a href="<c:url value="/store/detail?product=${product.name}&sign=${product.id}"/>">detail</a>
                     </td>
