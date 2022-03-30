@@ -22,6 +22,9 @@ public class PointServiceImplTest {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    OrderService orderService;
+
     @Test
     public void calculatePointTest(){
         Map<String, String> map = new HashMap<>();
@@ -33,7 +36,7 @@ public class PointServiceImplTest {
         Long ordererBefore = pointService.getPoint("testqq");
 
         try {
-            boolean testValue = pointService.txPoint(productDto, "testqq");
+            boolean testValue = orderService.txProduct(productDto, "testqq");
         } catch (Exception e) {
         }
 
@@ -58,7 +61,7 @@ public class PointServiceImplTest {
         Long ordererBefore = pointService.getPoint("testqq");
 
         try {
-            boolean testValue = pointService.txPoint(productDto, "testqq");
+            boolean testValue = orderService.txProduct(productDto, "testqq");
         } catch (Exception e) {
         }
 

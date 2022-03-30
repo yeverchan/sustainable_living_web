@@ -17,7 +17,7 @@
     <input type="text"id="address" name="ordererAddress">
     <label for=number>orderer phone number</label>
     <input type="text" id="number" name="ordererPhone">
-    <input type="hidden" name="id" value="${product.id}">
+    <input type="hidden" name="productId" value="${product.id}">
     <input type="hidden" name="productName" value="${product.name}">
     <h3>${product.price}</h3>
     <button>purchase</button>

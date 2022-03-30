@@ -101,4 +101,5 @@ public class PointHistoryDto {
                 ", created_At=" + created_At +
                 '}';
     }
+
 }

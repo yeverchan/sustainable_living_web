@@ -1,8 +1,10 @@
 package com.yeverchan.recycling_machine.controller;
 
 
+import com.yeverchan.recycling_machine.domain.Order;
 import com.yeverchan.recycling_machine.domain.ProductDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
+import com.yeverchan.recycling_machine.service.OrderService;
 import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class StoreController {
 
     @Autowired
     PointService pointService;
+
+    @Autowired
+    OrderService orderService;
 
     @GetMapping("/home")
     public String home(HttpServletRequest request) {
@@ -91,9 +96,9 @@ public class StoreController {
     }
 
     @PostMapping("/purchase")
-    public String purchase(@ModelAttribute(value = "order") @RequestParam Map<String, String> order, HttpServletRequest request, RedirectAttributes attributes) throws Exception {
+    public String purchase(@ModelAttribute(value = "order") Order order, HttpServletRequest request, RedirectAttributes attributes) throws Exception {
 
-        ProductDto productDto = getProduct(order.get("name"), order.get("id"));
+        ProductDto productDto = getProduct(order.getProductName(), order.getProductId());
         UserAuthInfo auth = (UserAuthInfo) request.getSession(false).getAttribute("auth");
         String ordererId = auth.getId();
         String path = request.getHeader("referer");
@@ -102,21 +107,21 @@ public class StoreController {
             attributes.addFlashAttribute("check", "ntexso");
             return "redirect:"+path;
         }
+
         Long amount = pointService.getPoint(ordererId);
+
         if(productDto.getPrice() > amount){
             attributes.addFlashAttribute("check", "nenopp");
             return "redirect:"+path;
         }
 
-        boolean check = pointService.txPoint(productDto, ordererId);
+        boolean check = orderService.txProduct(productDto, ordererId);
 
         if(!check){
             attributes.addFlashAttribute("check", "txerror");
             return "redirect:"+path;
         }
 
-        productDto.setState(0);
-        productService.updateState(productDto);
 
         attributes.addFlashAttribute("check", "compleTx");
         return "redirect:/store/home";

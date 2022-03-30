@@ -1,7 +1,6 @@
 package com.yeverchan.recycling_machine.controller;
 
 import com.yeverchan.recycling_machine.domain.PointHistoryDto;
-import com.yeverchan.recycling_machine.domain.ProductDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
 import com.yeverchan.recycling_machine.service.PointHistoryService;
@@ -90,12 +89,10 @@ public class UserInfoController {
     @GetMapping("/point/list")
     public String pointHistory(HttpServletRequest request){
 
-
         UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
-        System.out.println(authInfo);
+
         if(authInfo != null){
             List<PointHistoryDto> AllHistoryList = pointHistoryService.getAllHistory(authInfo.getId());
-            System.out.println(AllHistoryList);
             if (AllHistoryList.size() != 0) {
                 request.setAttribute("histories", AllHistoryList);
             }

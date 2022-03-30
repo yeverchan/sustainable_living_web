@@ -24,4 +24,6 @@ public class PointHistoryRepositoryImpl implements PointHistoryRepository {
     public List<PointHistoryDto> selectAllById(int point_id){
         return sqlSession.selectList(namespace+"selectAllPointHistoryByPointId", point_id);
     }
+
+
 }
