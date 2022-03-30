@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface OrderHistoryRepository {
     List<OrderHistoryDto> orderHistories(String user_id);
+    int insertHistory(OrderHistoryDto orderHistoryDto);
 }

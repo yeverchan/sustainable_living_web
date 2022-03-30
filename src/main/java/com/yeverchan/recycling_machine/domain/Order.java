@@ -6,13 +6,13 @@ public class Order {
     private String ordererName;
     private String ordererAddress;
     private String ordererPhone;
-    private String productId;
+    private int productId;
     private String productName;
 
     public Order() {
     }
 
-    public Order(String ordererName, String ordererAddress, String ordererPhone, String productId, String productName) {
+    public Order(String ordererName, String ordererAddress, String ordererPhone, int productId, String productName) {
         this.ordererName = ordererName;
         this.ordererAddress = ordererAddress;
         this.ordererPhone = ordererPhone;
@@ -44,11 +44,11 @@ public class Order {
         this.ordererPhone = ordererPhone;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 

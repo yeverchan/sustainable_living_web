@@ -94,6 +94,7 @@
     </delete>
 
     <!--    pointHistory   -->
+
     <insert id="insertPointHistory" parameterType="PointHistory">
         INSERT INTO point_history (point_id, service_type, service_description, amount) VALUES (#{point_id}, #{service_type}, #{service_description}, #{amount})
     </insert>
@@ -103,7 +104,12 @@
     </select>
 
     <!--    orderHistory    -->
+
     <select id="selectOrderHistoryByUserId" parameterType="String" resultType="OrderHistory">
-        SELECT order_history.created_At , order_history.orderer_name, order_history.orderer_address, order_history.orderer_phone_number, product.id, product.name FROM order_history INNER JOIN product ON order_history.product_id = product.id WHERE order_history.user_id=#{user_id}
+        SELECT order_history.created_At , order_history.orderer_name, order_history.orderer_address, order_history.orderer_phone_number, product.id, product.name FROM order_history INNER JOIN product ON order_history.product_id = product.id WHERE order_history.user_id=#{user_id} ORDER BY order_history.created_At DESC
     </select>
+
+    <insert id="insertOrderHistory" parameterType="OrderHistory">
+        INSERT INTO order_history(`user_id`, `product_id`, `orderer_name`, `orderer_address`, `orderer_phone_number`) values (#{user_id}, #{id}, #{orderer_name}, #{orderer_address}, #{orderer_phone_number});
+    </insert>
 </mapper>

@@ -20,4 +20,9 @@ public class OrderHistoryRepositoryImpl implements OrderHistoryRepository {
     public List<OrderHistoryDto> orderHistories(String user_id){
         return sqlSession.selectList(namespace+"selectOrderHistoryByUserId", user_id);
     }
+
+    @Override
+    public int insertHistory(OrderHistoryDto orderHistoryDto){
+        return sqlSession.insert(namespace+"insertOrderHistory", orderHistoryDto);
+    }
 }

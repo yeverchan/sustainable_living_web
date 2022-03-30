@@ -1,7 +1,6 @@
 package com.yeverchan.recycling_machine.repository;
 
 
-import com.yeverchan.recycling_machine.domain.PointDto;
 import com.yeverchan.recycling_machine.domain.PointHistoryDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;

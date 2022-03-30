@@ -31,4 +31,18 @@ public class OrderHistoryRepositoryImplTest {
 
     }
 
+    @Test
+    public void insertHistoryTest(){
+        OrderHistoryDto orderHistoryDto = new OrderHistoryDto();
+        orderHistoryDto.setUser_id("zxcvzxcv");
+        orderHistoryDto.setId(2);
+        orderHistoryDto.setOrderer_name("test_user");
+        orderHistoryDto.setOrderer_address("test address");
+        orderHistoryDto.setOrderer_phone_number("test number");
+
+        int check = orderHistoryRepository.insertHistory(orderHistoryDto);
+
+        assertEquals(1, check);
+
+    }
 }

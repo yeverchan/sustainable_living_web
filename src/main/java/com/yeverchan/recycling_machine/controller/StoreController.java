@@ -4,6 +4,7 @@ package com.yeverchan.recycling_machine.controller;
 import com.yeverchan.recycling_machine.domain.Order;
 import com.yeverchan.recycling_machine.domain.ProductDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
+import com.yeverchan.recycling_machine.service.OrderHistoryService;
 import com.yeverchan.recycling_machine.service.OrderService;
 import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.ProductService;
@@ -30,6 +31,9 @@ public class StoreController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    OrderHistoryService orderHistoryService;
 
     @GetMapping("/home")
     public String home(HttpServletRequest request) {
@@ -63,7 +67,7 @@ public class StoreController {
     }
 
     @GetMapping("/detail")
-    public String detail(@RequestParam String product, @RequestParam String sign ,HttpServletRequest request ,Model m) {
+    public String detail(@RequestParam String product, @RequestParam int sign ,HttpServletRequest request ,Model m) {
         ProductDto productDto = getProduct(product, sign);
         UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
         if (productDto == null) {
@@ -81,7 +85,7 @@ public class StoreController {
     }
 
     @GetMapping("/purchase")
-    public String purchase(@RequestParam String name, @RequestParam String id,Model m){
+    public String purchase(@RequestParam String name, @RequestParam int id,Model m){
         ProductDto productDto = getProduct(name, id);
         m.addAttribute("product" , productDto);
         if (productDto == null) {
@@ -122,16 +126,17 @@ public class StoreController {
             return "redirect:"+path;
         }
 
+        orderHistoryService.setHistory(order, ordererId);
 
         attributes.addFlashAttribute("check", "compleTx");
         return "redirect:/store/home";
     }
 
 
-    private ProductDto getProduct(String name, String id){
+    private ProductDto getProduct(String name, int id){
         Map<String, String> map = new HashMap<>();
         map.put("name", name);
-        map.put("id", id);
+        map.put("id", id+"");
         return productService.getProduct(map);
     }
 }
