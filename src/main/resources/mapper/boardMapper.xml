@@ -24,15 +24,15 @@
     </insert>
 
     <update id="updateName" parameterType="Map">
-        UPDATE user SET name=#{name} where id=#{id}
+        UPDATE user SET name=#{name} WHERE id=#{id}
     </update>
 
     <update id="updateEmail" parameterType="Map">
-        UPDATE user SET email=#{email} where id=#{id}
+        UPDATE user SET email=#{email} WHERE id=#{id}
     </update>
 
     <update id="updatePwd" parameterType="Map">
-        UPDATE user SET password=#{password} where id=#{id}
+        UPDATE user SET password=#{password} WHERE id=#{id}
     </update>
 
     <!--    point    -->
@@ -50,7 +50,7 @@
     </select>
 
     <update id="updatePoint" parameterType="Map">
-        UPDATE point SET amount=#{amount}, updated_At=now() where user_id=#{user_id}
+        UPDATE point SET amount=#{amount}, updated_At=now() WHERE user_id=#{user_id}
     </update>
 
     <!--    userHistory   -->
@@ -60,17 +60,17 @@
     </select>
 
     <insert id="insertHistory" parameterType="UserHistory">
-        INSERT INTO user_history (user_id, name, email) values (#{user_id}, #{name}, #{email})
+        INSERT INTO user_history (user_id, name, email) VALUES (#{user_id}, #{name}, #{email})
     </insert>
 
     <!--    product    -->
 
     <insert id="insertProduct" parameterType="ProductDto">
-        INSERT INTO product (user_id, name, description, price) values (#{user_id}, #{name}, #{description}, #{price})
+        INSERT INTO product (user_id, name, description, price) VALUES (#{user_id}, #{name}, #{description}, #{price})
     </insert>
 
     <select id="selectAllProductByUserId" parameterType="String" resultType="ProductDto">
-        SELECT id, user_id, name, description, price, created_At, state FROM product where user_id=#{user_id} ORDER BY created_At DESC
+        SELECT id, user_id, name, description, price, created_At, state FROM product WHERE user_id=#{user_id} ORDER BY created_At DESC
     </select>
 
     <select id="selectAllProduct" resultType="ProductDto">
@@ -78,27 +78,32 @@
     </select>
 
     <select id="selectByNameAndId" parameterType="Map" resultType="ProductDto">
-        SELECT id, user_id, name, description, price, created_At , state FROM product where name=#{name} and id=#{id}
+        SELECT id, user_id, name, description, price, created_At , state FROM product WHERE name=#{name} AND id=#{id}
     </select>
 
     <update id="updateProduct" parameterType="ProductDto">
-        UPDATE product SET name=#{name}, description=#{description}, price=#{price} where user_id=#{user_id} and id=#{id}
+        UPDATE product SET name=#{name}, description=#{description}, price=#{price} WHERE user_id=#{user_id} AND id=#{id}
     </update>
 
     <update id="updateProductState" parameterType="ProductDto">
-        UPDATE product SET state=#{state} where user_id=#{user_id} and id=#{id}
+        UPDATE product SET state=#{state} WHERE user_id=#{user_id} AND id=#{id}
     </update>
 
     <delete id="deleteProduct" parameterType="Map">
-        DELETE FROM product WHERE user_id=#{user_id} and id=#{id} and name=#{name}
+        DELETE FROM product WHERE user_id=#{user_id} AND id=#{id} AND name=#{name}
     </delete>
 
     <!--    pointHistory   -->
     <insert id="insertPointHistory" parameterType="PointHistory">
-        INSERT INTO point_history (point_id, service_type, service_description, amount) values (#{point_id}, #{service_type}, #{service_description}, #{amount})
+        INSERT INTO point_history (point_id, service_type, service_description, amount) VALUES (#{point_id}, #{service_type}, #{service_description}, #{amount})
     </insert>
 
     <select id="selectAllPointHistoryByPointId" parameterType="int" resultType="PointHistory">
-        SELECT point_id, service_type, service_description, amount, created_At  FROM point_history where point_id=#{point_id} ORDER BY created_At DESC
+        SELECT point_id, service_type, service_description, amount, created_At  FROM point_history WHERE point_id=#{point_id} ORDER BY created_At DESC
+    </select>
+
+    <!--    orderHistory    -->
+    <select id="selectOrderHistoryByUserId" parameterType="String" resultType="Map">
+        SELECT order_history.orderer_name, order_history.orderer_address, order_history.orderer_phone_number, product.id, product.name FROM order_history INNER JOIN product ON order_history.product_id = product.id WHERE order_history.user_id=#{user_id}
     </select>
 </mapper>
