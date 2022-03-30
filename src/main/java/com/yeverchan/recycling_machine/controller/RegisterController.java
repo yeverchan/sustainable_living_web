@@ -32,7 +32,7 @@ public class RegisterController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute(value = "register") @Valid RegisterDto register, BindingResult bindingResult, HttpServletRequest request){
+    public String create(@ModelAttribute(value = "register") @Valid RegisterDto register, BindingResult bindingResult, HttpServletRequest request) {
 
         request.setAttribute("createTemp", register);
 
@@ -41,8 +41,8 @@ public class RegisterController {
                 registerService.register(register);
                 request.setAttribute("com", "com");
                 return "create";
-            } catch (Exception e){
-                request.setAttribute("message",  e.getMessage());
+            } catch (Exception e) {
+                request.setAttribute("message", e.getMessage());
                 return "create";
             }
         }

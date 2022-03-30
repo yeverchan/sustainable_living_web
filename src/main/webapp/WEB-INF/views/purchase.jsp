@@ -11,14 +11,21 @@
 <h3>${product.name}</h3>
 <h3>${product.description}</h3>
 <form:form modelAttribute="order">
+    <div class="error_msg"><form:errors path="ordererName"/></div>
     <label for=name>orderer name</label>
-    <input type="text" id="name" name="ordererName">
+    <input type="text" id="name" name="ordererName" value="${order.ordererName}">
+
+    <div class="error_msg"><form:errors path="ordererAddress"/></div>
     <label for=address>orderer address</label>
-    <input type="text"id="address" name="ordererAddress">
+    <input type="text"id="address" name="ordererAddress" value="${order.ordererAddress}">
+
+    <div class="error_msg"><form:errors path="ordererPhone"/></div>
     <label for=number>orderer phone number</label>
-    <input type="text" id="number" name="ordererPhone">
+    <input type="text" id="number" name="ordererPhone" value="${order.ordererPhone}">
+
     <input type="hidden" name="productId" value="${product.id}">
     <input type="hidden" name="productName" value="${product.name}">
+
     <h3>${product.price}</h3>
     <button>purchase</button>
 </form:form>

@@ -8,13 +8,17 @@ import com.yeverchan.recycling_machine.service.OrderHistoryService;
 import com.yeverchan.recycling_machine.service.OrderService;
 import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.ProductService;
+import com.yeverchan.recycling_machine.validator.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +38,11 @@ public class StoreController {
 
     @Autowired
     OrderHistoryService orderHistoryService;
+
+    @InitBinder("order")
+    public void orderValid(WebDataBinder binder){
+        binder.setValidator(new OrderValidator());
+    }
 
     @GetMapping("/home")
     public String home(HttpServletRequest request) {
@@ -100,12 +109,17 @@ public class StoreController {
     }
 
     @PostMapping("/purchase")
-    public String purchase(@ModelAttribute(value = "order") Order order, HttpServletRequest request, RedirectAttributes attributes) throws Exception {
+    public String purchase(@ModelAttribute(value = "order") @Valid Order order, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes attributes) throws Exception {
+        String path = request.getHeader("referer");
 
+        if(bindingResult.hasErrors()){
+            attributes.addFlashAttribute("org.springframework.validation.BindingResult.order", bindingResult);
+            attributes.addFlashAttribute("order", order);
+            return "redirect:"+path;
+        }
         ProductDto productDto = getProduct(order.getProductName(), order.getProductId());
         UserAuthInfo auth = (UserAuthInfo) request.getSession(false).getAttribute("auth");
         String ordererId = auth.getId();
-        String path = request.getHeader("referer");
 
         if(productDto.getState() != 1){
             attributes.addFlashAttribute("check", "ntexso");
