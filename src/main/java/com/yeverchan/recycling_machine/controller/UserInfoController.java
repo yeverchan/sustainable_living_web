@@ -1,8 +1,11 @@
 package com.yeverchan.recycling_machine.controller;
 
+import com.yeverchan.recycling_machine.domain.OrderHistoryDto;
 import com.yeverchan.recycling_machine.domain.PointHistoryDto;
 import com.yeverchan.recycling_machine.domain.UserAuthInfo;
 import com.yeverchan.recycling_machine.domain.UserDto;
+import com.yeverchan.recycling_machine.repository.OrderHistoryRepository;
+import com.yeverchan.recycling_machine.service.OrderHistoryService;
 import com.yeverchan.recycling_machine.service.PointHistoryService;
 import com.yeverchan.recycling_machine.service.PointService;
 import com.yeverchan.recycling_machine.service.UserService;
@@ -28,6 +31,9 @@ public class UserInfoController {
 
     @Autowired
     PointHistoryService pointHistoryService;
+
+    @Autowired
+    OrderHistoryService orderHistoryService;
 
     @GetMapping("/my")
     public String info(HttpServletRequest request) throws Exception{
@@ -101,4 +107,18 @@ public class UserInfoController {
         return "pointHistory";
     }
 
+    @GetMapping("/order/list")
+    public String orderHistory(HttpServletRequest request){
+
+        UserAuthInfo authInfo = (UserAuthInfo) request.getSession(false).getAttribute("auth");
+
+        if(authInfo != null){
+            List<OrderHistoryDto> orderHistories = orderHistoryService.getHistory(authInfo.getId());
+            if (orderHistories.size() != 0) {
+                request.setAttribute("histories", orderHistories);
+            }
+        }
+
+        return "orderHistory";
+    }
 }

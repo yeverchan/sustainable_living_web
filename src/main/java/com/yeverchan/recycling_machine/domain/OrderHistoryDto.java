@@ -5,22 +5,14 @@ import java.util.Objects;
 
 public class OrderHistoryDto {
     private String user_id;
-    private int product_id;
+    private int id;
     private String orderer_name;
-    private String orerer_address;
-    private String orerer_phone_number;
+    private String orderer_address;
+    private String orderer_phone_number;
     private Date created_At;
+    private String name;
 
     public OrderHistoryDto() {
-    }
-
-    public OrderHistoryDto(String user_id, int product_id, String orderer_name, String orerer_address, String orerer_phone_number, Date created_At) {
-        this.user_id = user_id;
-        this.product_id = product_id;
-        this.orderer_name = orderer_name;
-        this.orerer_address = orerer_address;
-        this.orerer_phone_number = orerer_phone_number;
-        this.created_At = created_At;
     }
 
     public String getUser_id() {
@@ -31,12 +23,12 @@ public class OrderHistoryDto {
         this.user_id = user_id;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public int getId() {
+        return id;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getOrderer_name() {
@@ -47,20 +39,20 @@ public class OrderHistoryDto {
         this.orderer_name = orderer_name;
     }
 
-    public String getOrerer_address() {
-        return orerer_address;
+    public String getOrderer_address() {
+        return orderer_address;
     }
 
-    public void setOrerer_address(String orerer_address) {
-        this.orerer_address = orerer_address;
+    public void setOrderer_address(String orderer_address) {
+        this.orderer_address = orderer_address;
     }
 
-    public String getOrerer_phone_number() {
-        return orerer_phone_number;
+    public String getOrderer_phone_number() {
+        return orderer_phone_number;
     }
 
-    public void setOrerer_phone_number(String orerer_phone_number) {
-        this.orerer_phone_number = orerer_phone_number;
+    public void setOrderer_phone_number(String orderer_phone_number) {
+        this.orderer_phone_number = orderer_phone_number;
     }
 
     public Date getCreated_At() {
@@ -71,28 +63,37 @@ public class OrderHistoryDto {
         this.created_At = created_At;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderHistoryDto that = (OrderHistoryDto) o;
-        return product_id == that.product_id && Objects.equals(user_id, that.user_id) && Objects.equals(orderer_name, that.orderer_name) && Objects.equals(orerer_address, that.orerer_address) && Objects.equals(orerer_phone_number, that.orerer_phone_number) && Objects.equals(created_At, that.created_At);
+        return id == that.id && Objects.equals(user_id, that.user_id) && Objects.equals(orderer_name, that.orderer_name) && Objects.equals(orderer_address, that.orderer_address) && Objects.equals(orderer_phone_number, that.orderer_phone_number) && Objects.equals(created_At, that.created_At) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, product_id, orderer_name, orerer_address, orerer_phone_number, created_At);
+        return Objects.hash(user_id, id, orderer_name, orderer_address, orderer_phone_number, created_At, name);
     }
 
     @Override
     public String toString() {
         return "OrderHistoryDto{" +
                 "user_id='" + user_id + '\'' +
-                ", product_id=" + product_id +
+                ", id=" + id +
                 ", orderer_name='" + orderer_name + '\'' +
-                ", orerer_address='" + orerer_address + '\'' +
-                ", orerer_phone_number='" + orerer_phone_number + '\'' +
+                ", orderer_address='" + orderer_address + '\'' +
+                ", orderer_phone_number='" + orderer_phone_number + '\'' +
                 ", created_At=" + created_At +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

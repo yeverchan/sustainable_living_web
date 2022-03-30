@@ -1,8 +1,9 @@
 package com.yeverchan.recycling_machine.repository;
 
+import com.yeverchan.recycling_machine.domain.OrderHistoryDto;
+
 import java.util.List;
-import java.util.Map;
 
 public interface OrderHistoryRepository {
-    List<Map<String, String>> orderHistories(String user_id);
+    List<OrderHistoryDto> orderHistories(String user_id);
 }

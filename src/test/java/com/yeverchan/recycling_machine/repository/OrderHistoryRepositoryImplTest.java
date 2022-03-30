@@ -1,5 +1,6 @@
 package com.yeverchan.recycling_machine.repository;
 
+import com.yeverchan.recycling_machine.domain.OrderHistoryDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
-import java.util.Map;
+
 
 import static org.junit.Assert.*;
 
@@ -22,11 +23,12 @@ public class OrderHistoryRepositoryImplTest {
     public void selectHistoriesTest(){
         String user_id = "zxcvzxcv";
 
-        List<Map<String,String>> orderHistories = orderHistoryRepository.orderHistories(user_id);
+        List<OrderHistoryDto> orderHistories = orderHistoryRepository.orderHistories(user_id);
 
         assertNotNull(orderHistories);
 
         System.out.println(orderHistories);
+
     }
 
 }

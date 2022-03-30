@@ -103,7 +103,7 @@
     </select>
 
     <!--    orderHistory    -->
-    <select id="selectOrderHistoryByUserId" parameterType="String" resultType="Map">
-        SELECT order_history.orderer_name, order_history.orderer_address, order_history.orderer_phone_number, product.id, product.name FROM order_history INNER JOIN product ON order_history.product_id = product.id WHERE order_history.user_id=#{user_id}
+    <select id="selectOrderHistoryByUserId" parameterType="String" resultType="OrderHistory">
+        SELECT order_history.created_At , order_history.orderer_name, order_history.orderer_address, order_history.orderer_phone_number, product.id, product.name FROM order_history INNER JOIN product ON order_history.product_id = product.id WHERE order_history.user_id=#{user_id}
     </select>
 </mapper>

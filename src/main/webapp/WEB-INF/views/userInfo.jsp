@@ -13,6 +13,7 @@
     <a href="/manage/change"><button>change Info</button></a>
     <a href="/manage/pwdChange"><button>change password</button></a>
     <a href="/manage/point/list"><button>point history</button></a>
+    <a href="/manage/order/list"><button>order history</button></a>
 </body>
 <c:if test="${!empty com}">
     <script type="text/javascript">
