@@ -55,6 +55,6 @@
         <h6 style="color:red;">Sold Out</h6>
     </c:otherwise>
 </c:choose>
-
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 </html>

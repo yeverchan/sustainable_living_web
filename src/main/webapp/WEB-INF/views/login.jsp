@@ -18,5 +18,6 @@
     </div>
 </form:form>
 <div class="error_msg">${message}</div>
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 </html>

@@ -34,5 +34,6 @@
     </c:otherwise>
 </c:choose>
 <a href="<c:url value='/product/addProduct'/>">Add a Product</a>
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 </html>

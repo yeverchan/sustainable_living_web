@@ -65,5 +65,6 @@
         alert("transaction complete");
     </script>
 </c:if>
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 </html>

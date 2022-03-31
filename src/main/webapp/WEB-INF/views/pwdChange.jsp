@@ -23,8 +23,7 @@
 
         <button type="submit">change</button>
     </form:form>
-
-
 </div>
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 </html>

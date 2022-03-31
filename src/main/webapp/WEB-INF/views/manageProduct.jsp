@@ -36,7 +36,7 @@
     alert("error");
     </c:when>
 </c:choose>
-
 </script>
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 </html>

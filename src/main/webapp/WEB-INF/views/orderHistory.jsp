@@ -46,5 +46,6 @@
         </c:otherwise>
     </c:choose>
 </div>
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 </html>

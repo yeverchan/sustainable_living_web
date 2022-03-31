@@ -35,5 +35,6 @@
         window.location.href = "<c:url value='/'/>";
     </script>
 </c:if>
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 </html>

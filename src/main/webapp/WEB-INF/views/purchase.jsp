@@ -29,6 +29,7 @@
     <h3>${product.price}</h3>
     <button>purchase</button>
 </form:form>
+<h1><a href="<c:url value="/"/>">home</a></h1>
 </body>
 <c:if test="${!empty check && 'ntexso' eq check}">
     <script type="text/javascript">
